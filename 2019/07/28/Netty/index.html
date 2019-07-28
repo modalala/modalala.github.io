@@ -101,18 +101,18 @@
   };
 </script>
 
-  <meta name="description" content="随便写写">
-<meta name="keywords" content="Testing,Another Tag">
+  <meta name="description" content="java网络编程1、NIO123456789101112131415161718psvm&amp;#123;    ServerSocket ss = new ServerSocket();     ss.bind(new InetSocketAddress(&quot;127.0.0.1&quot;),8888);    while(true)&amp;#123;        Socket s = ss.accept();">
+<meta name="keywords" content="Netty">
 <meta property="og:type" content="article">
-<meta property="og:title" content="标签测试">
-<meta property="og:url" content="http://yoursite.com/2019/07/28/标签测试/index.html">
+<meta property="og:title" content="java网络编程">
+<meta property="og:url" content="http://yoursite.com/2019/07/28/Netty/index.html">
 <meta property="og:site_name" content="modalala">
-<meta property="og:description" content="随便写写">
+<meta property="og:description" content="java网络编程1、NIO123456789101112131415161718psvm&amp;#123;    ServerSocket ss = new ServerSocket();     ss.bind(new InetSocketAddress(&quot;127.0.0.1&quot;),8888);    while(true)&amp;#123;        Socket s = ss.accept();">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-28T03:18:42.997Z">
+<meta property="og:updated_time" content="2019-07-28T10:54:24.672Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="标签测试">
-<meta name="twitter:description" content="随便写写">
+<meta name="twitter:title" content="java网络编程">
+<meta name="twitter:description" content="java网络编程1、NIO123456789101112131415161718psvm&amp;#123;    ServerSocket ss = new ServerSocket();     ss.bind(new InetSocketAddress(&quot;127.0.0.1&quot;),8888);    while(true)&amp;#123;        Socket s = ss.accept();">
 
 
 
@@ -122,7 +122,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/07/28/标签测试/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/28/Netty/">
 
 
 
@@ -133,7 +133,7 @@
 </script>
 
   
-  <title>标签测试 | modalala</title>
+  <title>java网络编程 | modalala</title>
   
 
 
@@ -355,7 +355,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/标签测试/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/Netty/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="miki7">
@@ -372,7 +372,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">标签测试
+          <h1 class="post-title" itemprop="name headline">java网络编程
 
               
             
@@ -398,12 +398,27 @@
                 
               
 
-              <time title="创建时间：2019-07-28 11:11:35" itemprop="dateCreated datePublished" datetime="2019-07-28T11:11:35+08:00">2019-07-28</time>
+              <time title="创建时间：2019-07-28 18:05:51" itemprop="dateCreated datePublished" datetime="2019-07-28T18:05:51+08:00">2019-07-28</time>
             </span>
           
 
           
 
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -430,7 +445,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">5</span>
+              <span title="本文字数">680</span>
             </span>
           
 
@@ -461,7 +476,10 @@
       
 
       
-        <p>随便写写</p>
+        <h1 id="java网络编程"><a href="#java网络编程" class="headerlink" title="java网络编程"></a>java网络编程</h1><h2 id="1、NIO"><a href="#1、NIO" class="headerlink" title="1、NIO"></a>1、NIO</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">psvm&#123;</span><br><span class="line">    ServerSocket ss = <span class="keyword">new</span> ServerSocket(); </span><br><span class="line">    ss.bind(<span class="keyword">new</span> InetSocketAddress(<span class="string">"127.0.0.1"</span>),<span class="number">8888</span>);</span><br><span class="line">    <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">        Socket s = ss.accept();</span><br><span class="line">        	<span class="keyword">new</span> Thread(() -&gt;&#123;</span><br><span class="line">                heandle(s);</span><br><span class="line">            &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(Socket s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">int</span> len = s.getInputStream().read(bytes);</span><br><span class="line">        </span><br><span class="line">        s.getOutputStream().write(bytes,<span class="number">0</span>,len);</span><br><span class="line">    &#125;<span class="keyword">catch</span> &#123;bala&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">graph RL</span><br><span class="line">	ss --bind --&gt; s</span><br><span class="line">		subgraph server</span><br><span class="line">			s(s:127.0.0.1:8888)</span><br><span class="line">		end</span><br><span class="line">		subgraph listen</span><br><span class="line">			s --accept--&gt; thread1</span><br><span class="line">			s --accept--&gt; thread2 </span><br><span class="line">			s --accept--&gt;thread3</span><br><span class="line">		end</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -529,9 +547,7 @@
         
         <div class="post-tags">
           
-            <a href="/tags/Testing/" rel="tag"># Testing</a>
-          
-            <a href="/tags/Another-Tag/" rel="tag"># Another Tag</a>
+            <a href="/tags/Netty/" rel="tag"># Netty</a>
           
         </div>
       
@@ -564,8 +580,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/28/hexo第二次试验/" rel="next" title="hexo第二次试验">
-                <i class="fa fa-chevron-left"></i> hexo第二次试验
+              <a href="/2019/07/28/标签测试/" rel="next" title="标签测试">
+                <i class="fa fa-chevron-left"></i> 标签测试
               </a>
             
           </div>
@@ -573,10 +589,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/28/Netty/" rel="prev" title="java网络编程">
-                java网络编程 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -618,8 +630,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -739,6 +760,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java网络编程"><span class="nav-number">1.</span> <span class="nav-text">java网络编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、NIO"><span class="nav-number">1.1.</span> <span class="nav-text">1、NIO</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
