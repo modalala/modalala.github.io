@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[java网络编程]]></title>
     <url>%2F2019%2F07%2F28%2FNetty%2F</url>
-    <content type="text"><![CDATA[java网络编程1、NIO123456789101112131415161718psvm&#123; ServerSocket ss = new ServerSocket(); ss.bind(new InetSocketAddress("127.0.0.1"),8888); while(true)&#123; Socket s = ss.accept(); new Thread(() -&gt;&#123; heandle(s); &#125;).start(); &#125;&#125;static void handle(Socket s)&#123; try&#123; byte[] bytes = new byte[1024]; int len = s.getInputStream().read(bytes); s.getOutputStream().write(bytes,0,len); &#125;catch &#123;bala&#125;&#125; 12345678910graph RL ss --bind --&gt; s subgraph server s(s:127.0.0.1:8888) end subgraph listen s --accept--&gt; thread1 s --accept--&gt; thread2 s --accept--&gt;thread3 end]]></content>
+    <content type="text"><![CDATA[java网络编程1、NIO123456789101112131415161718psvm&#123; ServerSocket ss = new ServerSocket(); ss.bind(new InetSocketAddress("127.0.0.1"),8888); while(true)&#123; Socket s = ss.accept(); new Thread(() -&gt;&#123; heandle(s); &#125;).start(); &#125;&#125;static void handle(Socket s)&#123; try&#123; byte[] bytes = new byte[1024]; int len = s.getInputStream().read(bytes); s.getOutputStream().write(bytes,0,len); &#125;catch &#123;bala&#125;&#125; graph RL ss --bind --> s subgraph server s(s:127.0.0.1:8888) end subgraph listen s --accept--> thread1 s --accept--> thread2 s --accept-->thread3 end]]></content>
       <categories>
         <category>java</category>
       </categories>
