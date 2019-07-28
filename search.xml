@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[标签测试]]></title>
+    <url>%2F2019%2F07%2F28%2F%E6%A0%87%E7%AD%BE%E6%B5%8B%E8%AF%95%2F</url>
+    <content type="text"><![CDATA[随便写写]]></content>
+      <tags>
+        <tag>Testing</tag>
+        <tag>Another Tag</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[hexo第二次试验]]></title>
     <url>%2F2019%2F07%2F28%2Fhexo%E7%AC%AC%E4%BA%8C%E6%AC%A1%E8%AF%95%E9%AA%8C%2F</url>
     <content type="text"><![CDATA[sdfsdfsd]]></content>
