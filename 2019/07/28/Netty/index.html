@@ -109,12 +109,12 @@
 <meta property="og:site_name" content="modalala">
 <meta property="og:description" content="java网络编程1、NIO123456789101112131415161718psvm&amp;#123;    ServerSocket ss = new ServerSocket();     ss.bind(new InetSocketAddress(&quot;127.0.0.1&quot;),8888);    while(true)&amp;#123;        Socket s = ss.accept();">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/07/28/Netty/D:%5Cblog%5Csource_posts%5CNetty.assets%5CNIOsingleThread.png">
-<meta property="og:updated_time" content="2019-08-08T12:06:10.193Z">
+<meta property="og:image" content="http://yoursite.com/images/NIOsingleThread.png">
+<meta property="og:updated_time" content="2019-08-08T12:10:41.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java网络编程">
 <meta name="twitter:description" content="java网络编程1、NIO123456789101112131415161718psvm&amp;#123;    ServerSocket ss = new ServerSocket();     ss.bind(new InetSocketAddress(&quot;127.0.0.1&quot;),8888);    while(true)&amp;#123;        Socket s = ss.accept();">
-<meta name="twitter:image" content="http://yoursite.com/2019/07/28/Netty/D:%5Cblog%5Csource_posts%5CNetty.assets%5CNIOsingleThread.png">
+<meta name="twitter:image" content="http://yoursite.com/images/NIOsingleThread.png">
 
 
 
@@ -498,7 +498,7 @@
 </ul>
 <h3 id="解决方案：轮询"><a href="#解决方案：轮询" class="headerlink" title="解决方案：轮询"></a>解决方案：轮询</h3><ol>
 <li><h4 id="NIO-single-Thread（NewNon-Blocking"><a href="#NIO-single-Thread（NewNon-Blocking" class="headerlink" title="NIO-single Thread（NewNon-Blocking)"></a>NIO-single Thread（NewNon-Blocking)</h4><p>说明：大管家selector轮询：如果有客户端连接，就处理（单线程）压力很大</p>
-<p><img src="/2019/07/28/Netty/D:%5Cblog%5Csource_posts%5CNetty.assets%5CNIOsingleThread.png" alt="1564315140781"></p>
+<p><img src="/images/NIOsingleThread.png" alt="1564315140781"></p>
 </li>
 <li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">psvm&#123;</span><br><span class="line">    ServerSocketChannel ssc = .open();</span><br><span class="line">    ssc.socket().bind (~~~);</span><br><span class="line">    ssc.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line">    Selector selector = Selector.open();</span><br><span class="line">    ssc.register(selector ,~);</span><br><span class="line">    <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">        selector.select(); <span class="comment">//轮询选择到的请求 -&gt; 也是阻塞</span></span><br><span class="line">       Set&lt;SelectionKey&gt; key -&gt; selector.selectedKeys(); <span class="comment">//事件发生 把当前事件设个key</span></span><br><span class="line">        <span class="comment">//遍历SelectinKey 把得到的key remove</span></span><br><span class="line">        handle(key)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">handle</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ServerSocketChannel ssc  = key.channel();</span><br><span class="line">    SocketChannel sc = ssc.accept();</span><br><span class="line">    <span class="comment">//阻塞 -&gt; false</span></span><br><span class="line">    sc.register( <span class="comment">//设一个key)</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
