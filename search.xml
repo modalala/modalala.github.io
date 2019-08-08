@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[oAth2(一)]]></title>
+    <url>%2F2019%2F08%2F08%2FoAuth2%E5%89%8D%E8%A8%80%2F</url>
+    <content type="text"><![CDATA[oAth2背景传统登录状态出现问题 多个服务分别部署，需要分别登录 第三方应用介入对用户登录信息的需求 用户无法限制第三方应用在某个微服务中的授权范围和使用期限 用户修改登录信息对第三方的应用影响 第三方应用的破解会导致用户密码泄露 OAth2架构模式![30ef50ac37cf297f7235423dca467a0](C:\Users\ADMINI~1\AppData\Local\Temp\WeChat Files\30ef50ac37cf297f7235423dca467a0.png) 交互过程 开放平台交互模型 资源拥有者：用户 客户端：APP 服务提供方： 认证服务器 资源服务器 步骤： 用户 - 输入账号密码 -&gt; 腾讯提供的开放平台（提供：给谁授权、授权范围) 腾讯提供的开放平台登录成功 - 有道云笔记 授权码-&gt; 有道云笔记根据授权码访问腾讯 认证服务器去拿 访问令牌，用 访问令牌 去腾讯的 资源服务器， 资源服务器 根据令牌上的（授权人 &amp; 授权范围 ) 提供相应的资源：（用户昵称、头像、性别）。 有道云笔记根据获取的信息先注册个账号（填入相关信息 ： 不过你还要再完善相关信息：手机这些） 总结：开放平台只是获取部分信息，简化一定的注册流程 遵循OAuth2.0协议 即接口提供认证和授权标准 例如：接口JAP @Table @Column @Id Hibernate实现 用Spring Security 实现 令牌的访问与刷新原始令牌风险url：http://www.sdfsdf/usr/token=123 toekn被人发现，被爬虫一直刷 token一直在，别人抓包，就能抓到令牌，数据被别人拿去。 解决方案： 令牌刷新，用旧令牌获取新令牌：传入refresh_token 、 client_id 认证服务器通过会返回新的Access Token 要求： Refresh Token 保存在客户端服务器 client_secret机制：client_id(客户端) &lt;-&gt; client_secret（服务端）,在申请client_id会一起把client_secret分配给客户端，client_secret ##妥善保管在服务器##,刷新Access Token ，需要验证client_secret。 url变成： url:http://www.sdfsdf//refresh?refresh_token=&amp;client_id=&amp;client_secret= 所以第三方应用提供： appId = client_id appSecret = client_secret 客户端授权模式 简化模式 纯静态页面应用，APP，小程序，HTML5，第三方天气，个人博客，只有前端js控制权。 授权码模式 密码模式 客户端模式 总结： +访问令牌+ access Toekn + Refresh Toekn]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>oAth2</tag>
+        <tag>sso</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[java网络编程]]></title>
     <url>%2F2019%2F07%2F28%2FNetty%2F</url>
-    <content type="text"><![CDATA[java网络编程1、NIO123456789101112131415161718psvm&#123; ServerSocket ss = new ServerSocket(); ss.bind(new InetSocketAddress("127.0.0.1"),8888); while(true)&#123; Socket s = ss.accept(); new Thread(() -&gt;&#123; heandle(s); &#125;).start(); &#125;&#125;static void handle(Socket s)&#123; try&#123; byte[] bytes = new byte[1024]; int len = s.getInputStream().read(bytes); s.getOutputStream().write(bytes,0,len); &#125;catch &#123;bala&#125;&#125; graph RL ss --bind --> s subgraph server s(s:127.0.0.1:8888) end subgraph listen s --accept--> thread1 s --accept--> thread2 s --accept-->thread3 end]]></content>
+    <content type="text"><![CDATA[java网络编程1、NIO123456789101112131415161718psvm&#123; ServerSocket ss = new ServerSocket(); ss.bind(new InetSocketAddress("127.0.0.1"),8888); while(true)&#123; Socket s = ss.accept(); new Thread(() -&gt;&#123; heandle(s); &#125;).start(); &#125;&#125;static void handle(Socket s)&#123; try&#123; byte[] bytes = new byte[1024]; int len = s.getInputStream().read(bytes); s.getOutputStream().write(bytes,0,len); &#125;catch &#123;bala&#125;&#125; graph RL ss --bind --> s subgraph server s(s:127.0.0.1:8888) end subgraph listen s --accept--> thread1 s --accept--> thread2 s --accept-->thread3 end NIO会出现的问题 ss.accept()内的线程会 read write 解决方案：轮询 NIO-single Thread（NewNon-Blocking)说明：大管家selector轮询：如果有客户端连接，就处理（单线程）压力很大 1234567891011121314151617181920psvm&#123; ServerSocketChannel ssc = .open(); ssc.socket().bind (~~~); ssc.configureBlocking(false); Selector selector = Selector.open(); ssc.register(selector ,~); while(true)&#123; selector.select(); //轮询选择到的请求 -&gt; 也是阻塞 Set&lt;SelectionKey&gt; key -&gt; selector.selectedKeys(); //事件发生 把当前事件设个key //遍历SelectinKey 把得到的key remove handle(key) &#125;&#125;void handle()&#123; ServerSocketChannel ssc = key.channel(); SocketChannel sc = ssc.accept(); //阻塞 -&gt; false sc.register( //设一个key) &#125; graph RL boy(大管家) --注册--> accept1 boy(大管家) --注册--> accept2 subgraph list key_one key_two end subgraph 插座 accept1 --register--- key_one accept2 --register--- key_two 等待 end ####]]></content>
       <categories>
         <category>java</category>
       </categories>
