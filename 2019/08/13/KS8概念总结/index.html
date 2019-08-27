@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next pisces" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/King_504px_1235523_easyicon.net?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/King_504px_1235523_easyicon.net?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/King_504px_1235523_easyicon.net.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/King_504px_1235523_easyicon.net?v=7.2.0" color="#222">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: 'search.xml'
+    },
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="KS8概念总结模型图技术迭代部署大规模集群 模型 架构   实现高可用架构三大指标 高可用、高性能、高并发  Zookeeper  负载均衡：实现轮询机制。防止阻塞 集群：必须实现数据同步，Redis 高可用：一直可用，实现崩溃恢复 A（down &amp;amp; resume) B(up) C  ks8高可用集群搭建节点配置 步骤：  关闭交换空间 避免开机启动交换空间 关闭防火墙 配置 DNS 安装">
+<meta name="keywords" content="lala">
+<meta property="og:type" content="article">
+<meta property="og:title" content="modalala">
+<meta property="og:url" content="http://yoursite.com/2019/08/13/KS8概念总结/index.html">
+<meta property="og:site_name" content="modalala">
+<meta property="og:description" content="KS8概念总结模型图技术迭代部署大规模集群 模型 架构   实现高可用架构三大指标 高可用、高性能、高并发  Zookeeper  负载均衡：实现轮询机制。防止阻塞 集群：必须实现数据同步，Redis 高可用：一直可用，实现崩溃恢复 A（down &amp;amp; resume) B(up) C  ks8高可用集群搭建节点配置 步骤：  关闭交换空间 避免开机启动交换空间 关闭防火墙 配置 DNS 安装">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/1565591075478.png">
+<meta property="og:image" content="http://yoursite.com/images/1565591221738.png">
+<meta property="og:image" content="http://yoursite.com/images/1565591281369.png">
+<meta property="og:image" content="http://yoursite.com/images/1565591525113.png">
+<meta property="og:image" content="http://yoursite.com/images/1565591833794.png">
+<meta property="og:image" content="http://yoursite.com/images/1565592314612.png">
+<meta property="og:image" content="http://yoursite.com/images/1565593821985.png">
+<meta property="og:image" content="http://yoursite.com/images/1565595057809.png">
+<meta property="og:image" content="http://yoursite.com/images/1565611874845.png">
+<meta property="og:image" content="http://yoursite.com/images/1565612144152.png">
+<meta property="og:image" content="http://yoursite.com/images/1565612349113.png">
+<meta property="og:image" content="http://yoursite.com/images/1565613146789.png">
+<meta property="og:image" content="http://yoursite.com/images/1565624573158.png">
+<meta property="og:updated_time" content="2019-08-12T23:48:09.173Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="modalala">
+<meta name="twitter:description" content="KS8概念总结模型图技术迭代部署大规模集群 模型 架构   实现高可用架构三大指标 高可用、高性能、高并发  Zookeeper  负载均衡：实现轮询机制。防止阻塞 集群：必须实现数据同步，Redis 高可用：一直可用，实现崩溃恢复 A（down &amp;amp; resume) B(up) C  ks8高可用集群搭建节点配置 步骤：  关闭交换空间 避免开机启动交换空间 关闭防火墙 配置 DNS 安装">
+<meta name="twitter:image" content="http://yoursite.com/images/1565591075478.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="modalala" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/08/13/KS8概念总结/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  
+  <title> | modalala</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<!-- github 的边角 -->
+	<a href="https://github.com/modalala" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">modalala</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">bo~</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="javascript:;" class="popup-trigger">
+          
+            <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/13/KS8概念总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="miki7">
+      <meta itemprop="description" content="打一个大西瓜">
+      <meta itemprop="image" content="/images/cool.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="modalala">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-13 00:02:24" itemprop="dateCreated datePublished" datetime="2019-08-13T00:02:24+08:00">2019-08-13</time>
+            </span>
+          
+
+          
+
+          
+
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          
+
+          
+
+          <br>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">2.9k</span>
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">3 分钟</span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="KS8概念总结"><a href="#KS8概念总结" class="headerlink" title="KS8概念总结"></a>KS8概念总结</h1><h2 id="模型图"><a href="#模型图" class="headerlink" title="模型图"></a>模型图</h2><h4 id="技术迭代"><a href="#技术迭代" class="headerlink" title="技术迭代"></a>技术迭代</h4><h4 id="部署大规模集群"><a href="#部署大规模集群" class="headerlink" title="部署大规模集群"></a><img src="/images/1565591075478.png" alt="1565591075478">部署大规模集群</h4><p><img src="/images/1565591221738.png" alt="1565591221738"></p>
+<h4 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h4><p><img src="/images/1565591281369.png" alt="1565591281369"></p>
+<p>架构</p>
+<p><img src="/images/1565591525113.png" alt="1565591525113"></p>
+<p><img src="/images/1565591833794.png" alt="1565591833794"></p>
+<h2 id="实现高可用架构"><a href="#实现高可用架构" class="headerlink" title="实现高可用架构"></a>实现高可用架构</h2><h4 id="三大指标"><a href="#三大指标" class="headerlink" title="三大指标"></a>三大指标</h4><ul>
+<li>高可用、高性能、高并发</li>
+</ul>
+<p>Zookeeper</p>
+<ol>
+<li>负载均衡：实现轮询机制。防止阻塞</li>
+<li>集群：必须实现数据同步，Redis</li>
+<li>高可用：一直可用，实现崩溃恢复 A（down &amp; resume) B(up) C</li>
+</ol>
+<h2 id="ks8高可用集群搭建"><a href="#ks8高可用集群搭建" class="headerlink" title="ks8高可用集群搭建"></a>ks8高可用集群搭建</h2><h3 id="节点配置"><a href="#节点配置" class="headerlink" title="节点配置"></a>节点配置</h3><p><img src="/images/1565592314612.png" alt="1565592314612"></p>
+<p>步骤：</p>
+<ol>
+<li><h4 id="关闭交换空间"><a href="#关闭交换空间" class="headerlink" title="关闭交换空间"></a>关闭交换空间</h4></li>
+<li><h4 id="避免开机启动交换空间"><a href="#避免开机启动交换空间" class="headerlink" title="避免开机启动交换空间"></a>避免开机启动交换空间</h4></li>
+<li><h4 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h4></li>
+<li><h4 id="配置-DNS"><a href="#配置-DNS" class="headerlink" title="配置 DNS"></a>配置 DNS</h4></li>
+<li><h4 id="安装-Docke"><a href="#安装-Docke" class="headerlink" title="安装 Docke"></a>安装 Docke</h4></li>
+<li><h4 id="配置-Docker-加速器"><a href="#配置-Docker-加速器" class="headerlink" title="配置 Docker 加速器"></a>配置 Docker 加速器</h4></li>
+<li><h4 id="安装-kubeadm，kubelet，kubectl"><a href="#安装-kubeadm，kubelet，kubectl" class="headerlink" title="安装 kubeadm，kubelet，kubectl"></a>安装 kubeadm，kubelet，kubectl</h4></li>
+<li><h4 id="同步时间-时间要统一"><a href="#同步时间-时间要统一" class="headerlink" title="同步时间:时间要统一"></a>同步时间:时间要统一</h4></li>
+<li><h4 id="配置-IPVS"><a href="#配置-IPVS" class="headerlink" title="配置 IPVS"></a>配置 IPVS</h4></li>
+<li><h4 id="配置内核参数"><a href="#配置内核参数" class="headerlink" title="配置内核参数\"></a>配置内核参数\</h4></li>
+<li><h4 id="修改-cloud-cfg-是修改hostname"><a href="#修改-cloud-cfg-是修改hostname" class="headerlink" title="修改 cloud.cfg 是修改hostname"></a>修改 cloud.cfg 是修改hostname</h4></li>
+</ol>
+<h3 id="单独节点"><a href="#单独节点" class="headerlink" title="单独节点"></a>单独节点</h3><ol>
+<li><h3 id="配置-IP"><a href="#配置-IP" class="headerlink" title="配置 IP"></a>配置 IP</h3></li>
+<li><h3 id="配置主机名"><a href="#配置主机名" class="headerlink" title="配置主机名"></a>配置主机名</h3></li>
+<li><h2 id="安装-HAProxy-（高可用）-Keepalived（负载均衡）"><a href="#安装-HAProxy-（高可用）-Keepalived（负载均衡）" class="headerlink" title="安装 HAProxy （高可用）+ Keepalived（负载均衡）"></a>安装 HAProxy （高可用）+ Keepalived（负载均衡）</h2><ol>
+<li><h3 id="Keepalived概述"><a href="#Keepalived概述" class="headerlink" title="Keepalived概述"></a>Keepalived概述</h3><h4 id="ks8-Master阶段运行组件"><a href="#ks8-Master阶段运行组件" class="headerlink" title="ks8 Master阶段运行组件"></a>ks8 Master阶段运行组件</h4></li>
+</ol>
+<ul>
+<li><p>kube-apiserver:提供资源操作的唯一入口（提供认证、授权、访问控制、api注册和发现)</p>
+</li>
+<li><p>kube-scheduler：负责资源调度 ，将pod调度到相应机器上。</p>
+</li>
+<li><p>kube-controller-manager：负责维护集群状态（故障检测、自动扩展。。。）</p>
+<h4 id="Keepalived"><a href="#Keepalived" class="headerlink" title="Keepalived"></a>Keepalived</h4><p>当master挂了，将其他slaver接上去</p>
+<p>实现图解</p>
+<p><img src="/images/1565593821985.png" alt="1565593821985"></p>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="4">
+<li><h2 id="部署-Kubernetes-集群"><a href="#部署-Kubernetes-集群" class="headerlink" title="部署 Kubernetes 集群"></a>部署 Kubernetes 集群</h2><ol>
+<li><h3 id="初始化-Master"><a href="#初始化-Master" class="headerlink" title="初始化 Master"></a>初始化 Master</h3></li>
+<li><h3 id="加入-Master-节点"><a href="#加入-Master-节点" class="headerlink" title="加入 Master 节点"></a>加入 Master 节点</h3></li>
+<li><h3 id="加入-Node-节点"><a href="#加入-Node-节点" class="headerlink" title="加入 Node 节点"></a>加入 Node 节点</h3></li>
+<li><h3 id="验证集群状态"><a href="#验证集群状态" class="headerlink" title="验证集群状态"></a>验证集群状态</h3></li>
+<li><h3 id="验证高可用"><a href="#验证高可用" class="headerlink" title="验证高可用"></a>验证高可用</h3><p>注意 重启之后ipvs要重新执行一哈</p>
+<p><img src="/images/1565595057809.png" alt="1565595057809"></p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><h4 id="解决Node无法加入集群"><a href="#解决Node无法加入集群" class="headerlink" title="解决Node无法加入集群"></a>解决Node无法加入集群</h4><p>替换 Calico（网络插件） 网段为我们虚拟机不重叠的网段（这里用的是 Flannel 默认网段）</p>
+<p>如果Calico网段与master、slaver网段重叠就会导致Node无法加入集群。</p>
+<ol>
+<li>ks8重置</li>
+<li>删除kubectl配置</li>
+<li>启动ipvs</li>
+<li>导出并修改配置文件 改calico网段</li>
+<li>kubeadm初始化</li>
+<li>配置kubectl</li>
+<li>下载Calico 配置文件并修改 611 行 /name: CALICO_IPV$POOL_CIDR 的value</li>
+<li>直接应用本地Calico</li>
+<li>加入Master结点（最后 配置mkdir babbalala~~ dubectl get node)</li>
+</ol>
+<h2 id="通过资源配置运行容器-部署容器-测试"><a href="#通过资源配置运行容器-部署容器-测试" class="headerlink" title="通过资源配置运行容器(部署容器)测试"></a>通过资源配置运行容器(部署容器)测试</h2><h3 id="启动顺序"><a href="#启动顺序" class="headerlink" title="启动顺序"></a>启动顺序</h3><ol>
+<li><p>Pod</p>
+</li>
+<li><p>Deployment 内部访问</p>
+</li>
+<li><p>Service 外部访问机制</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">kubectl get node #结点状态</span><br><span class="line">master01: vi /kubernetes/yml/nginx-deployment.yml #设置deployment</span><br><span class="line">kubectl create -f nginx-deployment.yml</span><br><span class="line">kubectl get pod #查看pod</span><br><span class="line">kubectl get deployment #看看deployment 开两个实例</span><br><span class="line">master01: vi /kubernetes/yml/ nginx-service.yml #设置service</span><br><span class="line">kubectl get service #查看service</span><br><span class="line">端口： 80：30066  （30066指的是node 的pod暴露30066端口，再由pod映射到nginx 的80端口）</span><br><span class="line">kubectl describe service nginx-http #下面</span><br><span class="line">NodePort: 30066/TCP</span><br><span class="line"><span class="meta">#</span><span class="bash">使用LoadBalancer master slaver 端口都暴露</span></span><br><span class="line">master01：30066</span><br><span class="line">master02：30066</span><br><span class="line">slaver01：30066</span><br><span class="line">slaver02: 30066</span><br><span class="line">kubectl delete -f nginx-service.yml #停掉</span><br><span class="line"><span class="meta">#</span><span class="bash">想要把30066改成80端口</span></span><br><span class="line">vi /kubernetes/yml/ nginx-service.yml</span><br><span class="line">prots:</span><br><span class="line">	-prot: 80 #Service 端口</span><br><span class="line">	targetPort: 80 #Pod 端口 将Service暴露端口转发到Pod端口上</span><br><span class="line">	nodePort: 80 # 本来是30066  但是报错 他的范围30000-32767</span><br><span class="line">kubectl create -f nginx-service.yml #重开</span><br><span class="line"><span class="meta">#</span><span class="bash">解决办法</span></span><br><span class="line">vi /etc/kubernetes/manitestls/kube-apiserver.yml</span><br><span class="line"><span class="meta">#</span><span class="bash">增加配置</span></span><br><span class="line">--service-node-prot-range=2-65545</span><br><span class="line"><span class="meta">#</span><span class="bash">ks8重启  或者 他自动重启</span></span><br><span class="line"><span class="meta">#</span><span class="bash">验证</span></span><br><span class="line">kubectl create -f nginx-service.yml</span><br><span class="line">kubectl describe service nginx-http</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="Ingress统一访问入口"><a href="#Ingress统一访问入口" class="headerlink" title="Ingress统一访问入口"></a>Ingress统一访问入口</h2><h3 id="ClusterIP服务"><a href="#ClusterIP服务" class="headerlink" title="ClusterIP服务"></a>ClusterIP服务</h3><p>内部访问方式：外部proxy模式访问内部</p>
+<p><img src="/images/1565611874845.png" alt="1565611874845"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl get service</span><br><span class="line">   type</span><br><span class="line">   ClusterIP</span><br></pre></td></tr></table></figure>
+
+<h3 id="三种外部访问方式"><a href="#三种外部访问方式" class="headerlink" title="三种外部访问方式"></a>三种外部访问方式</h3><h4 id="NodePort"><a href="#NodePort" class="headerlink" title="NodePort"></a>NodePort</h4><p>在所有节点（虚拟机）上开放一个特定端口</p>
+<ul>
+<li>每个端口一种服务</li>
+<li>默认模式（官方不推荐）</li>
+<li>调试的时候用</li>
+</ul>
+<p><img src="/images/1565612144152.png" alt="1565612144152"></p>
+<h4 id="LoadBalancer"><a href="#LoadBalancer" class="headerlink" title="LoadBalancer"></a>LoadBalancer</h4><p>在NodePort加了负载均衡</p>
+<h4 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h4><p>扮演智能路由 或 集</p>
+<p>群入口 （类似API网关）</p>
+<p><img src="/images/1565612349113.png" alt="1565612349113"></p>
+<p>例如：部署Tomcat只允许在内网访问，需要Ingress提供反向代理功能路由到Tomcat上</p>
+<ol>
+<li><p>部署Tomcat  tomcat.yml（Devlopment+Service）</p>
+<p>ClusterIP设置</p>
+<p><code>watch kubectl get pods # 查看运行状态</code></p>
+<p><code>kubectl get deployment</code></p>
+<p><code>kubectl get  service</code></p>
+<p><code>kubectl describe service tomcat-http</code> 没有nodeport 限制外网访问</p>
+<p><img src="/images/1565613146789.png" alt="1565613146789"></p>
+</li>
+<li><p>下载Nginx Ingress Controller 配置文件 &amp; 修改</p>
+<p><code>hostNetwork: true</code></p>
+<p><code>kubectl get pods -all -namespaces</code></p>
+<p>多了 <code>ingress-nginx</code></p>
+</li>
+<li><p>部署ingress  -&gt; ingress.yml</p>
+</li>
+<li><p><code>kubectl get pods -n ingress-nginx -o wide</code></p>
+<p>ip: 192.168.141.161</p>
+</li>
+<li><p>SwitchHosts  : 192.168.141.161 域名</p>
+</li>
+</ol>
+<h2 id="数据持久化"><a href="#数据持久化" class="headerlink" title="数据持久化"></a>数据持久化</h2><p>NFS+PV/PVC</p>
+<h3 id="NFS"><a href="#NFS" class="headerlink" title="NFS"></a>NFS</h3><p>RPC通信，分布式文件系统</p>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><ol>
+<li>安装NFS服务端</li>
+<li>安装NFS客户端</li>
+<li>验证NFS服务</li>
+</ol>
+<h3 id="PV和PVC"><a href="#PV和PVC" class="headerlink" title="PV和PVC"></a>PV和PVC</h3><p>持久卷提供者 持久卷消费者 NFS网络方案</p>
+<p>pv：规格集群资源</p>
+<p>pvc：分配集群资源</p>
+<p><img src="/images/1565624573158.png" alt="1565624573158"></p>
+<ol>
+<li><p>create pv.yml    pvc.yml</p>
+</li>
+<li><p>部署mysql 8 连接pv pvc</p>
+<p>出现问题：没有个性化配置</p>
+</li>
+</ol>
+<h3 id="ConfigMap"><a href="#ConfigMap" class="headerlink" title="ConfigMap"></a>ConfigMap</h3><p>用来存储配置文件的ks8资源对象，放在etcd内，一种外挂配置。解耦</p>
+<p>即：可是用ConfigMap配置MYSQL</p>
+<h2 id="Dashboard"><a href="#Dashboard" class="headerlink" title="Dashboard"></a>Dashboard</h2><p>运行界面</p>
+<h2 id="CI-CD"><a href="#CI-CD" class="headerlink" title="CI/CD"></a>CI/CD</h2><p>环境：</p>
+<ul>
+<li>java</li>
+<li>git</li>
+<li>mvn</li>
+</ul>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechat.jpg" alt="miki7 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alibaba.jpg" alt="miki7 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+            
+              <div id="needsharebutton-postbottom">
+                <span class="btn">
+                  <i class="fa fa-share-alt" aria-hidden="true"></i>
+                </span>
+              </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/11/时间算法对应使用算法/" rel="next" title="时间算法对应使用算法">
+                <i class="fa fa-chevron-left"></i> 时间算法对应使用算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  
+    <img class="site-author-image" itemprop="image" src="/images/cool.jpg" alt="miki7">
+  
+  <p class="site-author-name" itemprop="name">miki7</p>
+  <div class="site-description motion-element" itemprop="description">打一个大西瓜</div>
+</div>
+
+
+  <nav class="site-state motion-element">
+    
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+
+
+  <div class="links-of-author motion-element">
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/modalala" title="GitHub &rarr; https://github.com/modalala" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:782771968@qq.com" title="E-Mail &rarr; mailto:782771968@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+
+
+
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KS8概念总结"><span class="nav-number">1.</span> <span class="nav-text">KS8概念总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模型图"><span class="nav-number">1.1.</span> <span class="nav-text">模型图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#技术迭代"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">技术迭代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#部署大规模集群"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">部署大规模集群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模型"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">模型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现高可用架构"><span class="nav-number">1.2.</span> <span class="nav-text">实现高可用架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#三大指标"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">三大指标</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#ks8高可用集群搭建"><span class="nav-number">1.3.</span> <span class="nav-text">ks8高可用集群搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#节点配置"><span class="nav-number">1.3.1.</span> <span class="nav-text">节点配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭交换空间"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">关闭交换空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#避免开机启动交换空间"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">避免开机启动交换空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭防火墙"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">关闭防火墙</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-DNS"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">配置 DNS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-Docke"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">安装 Docke</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-Docker-加速器"><span class="nav-number">1.3.1.6.</span> <span class="nav-text">配置 Docker 加速器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-kubeadm，kubelet，kubectl"><span class="nav-number">1.3.1.7.</span> <span class="nav-text">安装 kubeadm，kubelet，kubectl</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同步时间-时间要统一"><span class="nav-number">1.3.1.8.</span> <span class="nav-text">同步时间:时间要统一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-IPVS"><span class="nav-number">1.3.1.9.</span> <span class="nav-text">配置 IPVS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置内核参数"><span class="nav-number">1.3.1.10.</span> <span class="nav-text">配置内核参数\</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改-cloud-cfg-是修改hostname"><span class="nav-number">1.3.1.11.</span> <span class="nav-text">修改 cloud.cfg 是修改hostname</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单独节点"><span class="nav-number">1.3.2.</span> <span class="nav-text">单独节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-IP"><span class="nav-number">1.3.3.</span> <span class="nav-text">配置 IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置主机名"><span class="nav-number">1.3.4.</span> <span class="nav-text">配置主机名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-HAProxy-（高可用）-Keepalived（负载均衡）"><span class="nav-number">1.4.</span> <span class="nav-text">安装 HAProxy （高可用）+ Keepalived（负载均衡）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Keepalived概述"><span class="nav-number">1.4.1.</span> <span class="nav-text">Keepalived概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ks8-Master阶段运行组件"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">ks8 Master阶段运行组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Keepalived"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">Keepalived</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署-Kubernetes-集群"><span class="nav-number">1.5.</span> <span class="nav-text">部署 Kubernetes 集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化-Master"><span class="nav-number">1.5.1.</span> <span class="nav-text">初始化 Master</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入-Master-节点"><span class="nav-number">1.5.2.</span> <span class="nav-text">加入 Master 节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入-Node-节点"><span class="nav-number">1.5.3.</span> <span class="nav-text">加入 Node 节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证集群状态"><span class="nav-number">1.5.4.</span> <span class="nav-text">验证集群状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证高可用"><span class="nav-number">1.5.5.</span> <span class="nav-text">验证高可用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.5.6.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决Node无法加入集群"><span class="nav-number">1.5.6.1.</span> <span class="nav-text">解决Node无法加入集群</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过资源配置运行容器-部署容器-测试"><span class="nav-number">1.6.</span> <span class="nav-text">通过资源配置运行容器(部署容器)测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动顺序"><span class="nav-number">1.6.1.</span> <span class="nav-text">启动顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ingress统一访问入口"><span class="nav-number">1.7.</span> <span class="nav-text">Ingress统一访问入口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ClusterIP服务"><span class="nav-number">1.7.1.</span> <span class="nav-text">ClusterIP服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三种外部访问方式"><span class="nav-number">1.7.2.</span> <span class="nav-text">三种外部访问方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#NodePort"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">NodePort</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LoadBalancer"><span class="nav-number">1.7.2.2.</span> <span class="nav-text">LoadBalancer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ingress"><span class="nav-number">1.7.2.3.</span> <span class="nav-text">Ingress</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据持久化"><span class="nav-number">1.8.</span> <span class="nav-text">数据持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NFS"><span class="nav-number">1.8.1.</span> <span class="nav-text">NFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署"><span class="nav-number">1.8.2.</span> <span class="nav-text">部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PV和PVC"><span class="nav-number">1.8.3.</span> <span class="nav-text">PV和PVC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConfigMap"><span class="nav-number">1.8.4.</span> <span class="nav-text">ConfigMap</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dashboard"><span class="nav-number">1.9.</span> <span class="nav-text">Dashboard</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CI-CD"><span class="nav-number">1.10.</span> <span class="nav-text">CI/CD</span></a></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">miki7</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">30k</span>
+  
+
+
+  
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">27 分钟</span>
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- 百度统计 -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?342d289c8dc13f88800ad4037f47c93c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共6.5k字</span>
+</div>
+
+
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+    
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+      pbOptions = {};
+      
+        pbOptions.iconStyle = "box";
+      
+        pbOptions.boxForm = "horizontal";
+      
+        pbOptions.position = "bottomCenter";
+      
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+        flOptions.iconStyle = "box";
+      
+        flOptions.boxForm = "horizontal";
+      
+        flOptions.position = "middleRight";
+      
+        flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+
+    
+
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.2.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+<script>
+// GET RESPONSIVE HEIGHT PASSED FROM IFRAME
+
+window.addEventListener("message", function(e) {
+  var data = e.data;
+  if ((typeof data === 'string') && (data.indexOf('ciu_embed') > -1)) {
+    var featureID = data.split(':')[1];
+    var height = data.split(':')[2];
+    $(`iframe[data-feature=${featureID}]`).height(parseInt(height) + 30);
+  }
+}, false);
+</script>
+
+
+
+
+
+
+
+
+  
+
+</body>
+</html>
