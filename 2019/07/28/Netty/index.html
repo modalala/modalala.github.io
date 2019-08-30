@@ -101,19 +101,19 @@
   };
 </script>
 
-  <meta name="description" content="java网络编程1、NIO123456789101112131415161718psvm&amp;#123;    ServerSocket ss = new ServerSocket();     ss.bind(new InetSocketAddress(&quot;127.0.0.1&quot;),8888);    while(true)&amp;#123;        Socket s = ss.accept();">
+  <meta name="description" content="java网络编程BIO123456789101112131415161718psvm&amp;#123;    ServerSocket ss = new ServerSocket();     ss.bind(new InetSocketAddress(&quot;127.0.0.1&quot;),8888);    while(true)&amp;#123;        Socket s = ss.accept();">
 <meta name="keywords" content="Netty">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java网络编程">
 <meta property="og:url" content="http://yoursite.com/2019/07/28/Netty/index.html">
 <meta property="og:site_name" content="modalala">
-<meta property="og:description" content="java网络编程1、NIO123456789101112131415161718psvm&amp;#123;    ServerSocket ss = new ServerSocket();     ss.bind(new InetSocketAddress(&quot;127.0.0.1&quot;),8888);    while(true)&amp;#123;        Socket s = ss.accept();">
+<meta property="og:description" content="java网络编程BIO123456789101112131415161718psvm&amp;#123;    ServerSocket ss = new ServerSocket();     ss.bind(new InetSocketAddress(&quot;127.0.0.1&quot;),8888);    while(true)&amp;#123;        Socket s = ss.accept();">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/NIOsingleThread.png">
-<meta property="og:updated_time" content="2019-08-08T12:10:41.706Z">
+<meta property="og:updated_time" content="2019-08-30T03:04:39.492Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java网络编程">
-<meta name="twitter:description" content="java网络编程1、NIO123456789101112131415161718psvm&amp;#123;    ServerSocket ss = new ServerSocket();     ss.bind(new InetSocketAddress(&quot;127.0.0.1&quot;),8888);    while(true)&amp;#123;        Socket s = ss.accept();">
+<meta name="twitter:description" content="java网络编程BIO123456789101112131415161718psvm&amp;#123;    ServerSocket ss = new ServerSocket();     ss.bind(new InetSocketAddress(&quot;127.0.0.1&quot;),8888);    while(true)&amp;#123;        Socket s = ss.accept();">
 <meta name="twitter:image" content="http://yoursite.com/images/NIOsingleThread.png">
 
 
@@ -447,7 +447,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">1.7k</span>
+              <span title="本文字数">1.8k</span>
             </span>
           
 
@@ -478,7 +478,7 @@
       
 
       
-        <h1 id="java网络编程"><a href="#java网络编程" class="headerlink" title="java网络编程"></a>java网络编程</h1><h2 id="1、NIO"><a href="#1、NIO" class="headerlink" title="1、NIO"></a>1、NIO</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">psvm&#123;</span><br><span class="line">    ServerSocket ss = <span class="keyword">new</span> ServerSocket(); </span><br><span class="line">    ss.bind(<span class="keyword">new</span> InetSocketAddress(<span class="string">"127.0.0.1"</span>),<span class="number">8888</span>);</span><br><span class="line">    <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">        Socket s = ss.accept();</span><br><span class="line">        	<span class="keyword">new</span> Thread(() -&gt;&#123;</span><br><span class="line">                heandle(s);</span><br><span class="line">            &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(Socket s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">int</span> len = s.getInputStream().read(bytes);</span><br><span class="line">        </span><br><span class="line">        s.getOutputStream().write(bytes,<span class="number">0</span>,len);</span><br><span class="line">    &#125;<span class="keyword">catch</span> &#123;bala&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="java网络编程"><a href="#java网络编程" class="headerlink" title="java网络编程"></a>java网络编程</h1><h2 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">psvm&#123;</span><br><span class="line">    ServerSocket ss = <span class="keyword">new</span> ServerSocket(); </span><br><span class="line">    ss.bind(<span class="keyword">new</span> InetSocketAddress(<span class="string">"127.0.0.1"</span>),<span class="number">8888</span>);</span><br><span class="line">    <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">        Socket s = ss.accept();</span><br><span class="line">        	<span class="keyword">new</span> Thread(() -&gt;&#123;</span><br><span class="line">                heandle(s);</span><br><span class="line">            &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(Socket s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">int</span> len = s.getInputStream().read(bytes);</span><br><span class="line">        </span><br><span class="line">        s.getOutputStream().write(bytes,<span class="number">0</span>,len);</span><br><span class="line">    &#125;<span class="keyword">catch</span> &#123;bala&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <pre class="mermaid">graph RL
     ss --bind --> s
@@ -491,7 +491,7 @@
             s --accept-->thread3
         end</pre>
 
-<h3 id="NIO会出现的问题"><a href="#NIO会出现的问题" class="headerlink" title="NIO会出现的问题"></a>NIO会出现的问题</h3><ul>
+<h3 id="BIO会出现的问题"><a href="#BIO会出现的问题" class="headerlink" title="BIO会出现的问题"></a>BIO会出现的问题</h3><ul>
 <li>ss.accept()内的线程会</li>
 <li>read</li>
 <li>write</li>
@@ -523,7 +523,8 @@
 
 
 
-<p>#### </p>
+<h2 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h2><h3 id="实现了异步非阻塞IO"><a href="#实现了异步非阻塞IO" class="headerlink" title="实现了异步非阻塞IO"></a>实现了异步非阻塞IO</h3><p>AIO取消了对Selector注册通道的轮询</p>
+<p>采用hock函数将read 、write 、accept  3个不同模块分别交付给os操作。</p>
 
       
     </div>
@@ -841,7 +842,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java网络编程"><span class="nav-number">1.</span> <span class="nav-text">java网络编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、NIO"><span class="nav-number">1.1.</span> <span class="nav-text">1、NIO</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NIO会出现的问题"><span class="nav-number">1.1.1.</span> <span class="nav-text">NIO会出现的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案：轮询"><span class="nav-number">1.1.2.</span> <span class="nav-text">解决方案：轮询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#NIO-single-Thread（NewNon-Blocking"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">NIO-single Thread（NewNon-Blocking)</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java网络编程"><span class="nav-number">1.</span> <span class="nav-text">java网络编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BIO"><span class="nav-number">1.1.</span> <span class="nav-text">BIO</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BIO会出现的问题"><span class="nav-number">1.1.1.</span> <span class="nav-text">BIO会出现的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案：轮询"><span class="nav-number">1.1.2.</span> <span class="nav-text">解决方案：轮询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#NIO-single-Thread（NewNon-Blocking"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">NIO-single Thread（NewNon-Blocking)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AIO"><span class="nav-number">1.2.</span> <span class="nav-text">AIO</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现了异步非阻塞IO"><span class="nav-number">1.2.1.</span> <span class="nav-text">实现了异步非阻塞IO</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -875,7 +876,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">46k</span>
+    <span title="站点总字数">49k</span>
   
 
 
@@ -886,7 +887,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">42 分钟</span>
+    <span title="站点阅读时长">44 分钟</span>
   
 </div>
 
@@ -917,7 +918,7 @@ var _hmt = _hmt || [];
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共11.4k字</span>
+  <span class="post-count">博客全站共12.4k字</span>
 </div>
 
 
