@@ -124,7 +124,7 @@
 <meta property="og:image" content="http://yoursite.com/images/1567134679588.png">
 <meta property="og:image" content="http://yoursite.com/images/1567134819520.png">
 <meta property="og:image" content="http://yoursite.com/images/1567134873704.png">
-<meta property="og:updated_time" content="2019-08-30T07:26:01.932Z">
+<meta property="og:updated_time" content="2019-08-30T08:19:40.905Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java基础">
 <meta name="twitter:description" content="Java 基础异常类异常说明如果出错，创建出一个异常类对象，抛出相关信息 继承关系12345678910        Throwable          | - Error java内部错误 不会捕获异常 （内部错误）          | - Exception | - RuntimeExecption 运行异常 运行阶段 nullpoint">
@@ -461,7 +461,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">8k</span>
+              <span title="本文字数">8.9k</span>
             </span>
           
 
@@ -473,7 +473,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">7 分钟</span>
+              <span title="阅读时长">8 分钟</span>
             </span>
           
 
@@ -636,7 +636,55 @@
 <p><img src="/images/1566979637383.png" alt="1566979637383"></p>
 <p>每个Segment守护一个HashEntry数组的元素，当对hashEntry数组数据修改是，必须先获取对应的<strong>Segment锁</strong>（就是分段锁机制）</p>
 <p>ConcurrentHashMap内部包含了Segment数组，而每个Segment又继承自ReentrantLock，因此它是一把可重入的锁。</p>
-<h4 id="锁机制"><a href="#锁机制" class="headerlink" title="锁机制"></a>锁机制</h4><p>乐观锁CAS &amp; 悲观锁</p>
+<h4 id="锁机制"><a href="#锁机制" class="headerlink" title="锁机制"></a>锁机制</h4><ol>
+<li><p>脏读：a事务 <strong>读到</strong>    b事务    <strong>未提交的数据</strong></p>
+<p>​          解决</p>
+<ul>
+<li>修改-&gt;排它锁，事务提交才释放，读取 -&gt;共享锁</li>
+<li>共享锁 （很多人可以读） 【有人想修改】 -》 排它锁 ，修改完毕后，其他人重新读数据时发现已经不同 ，（他运行事务未提交就释放共享锁）   导致不能避免 <strong>不可重复读</strong></li>
+</ul>
+</li>
+<li><p>幻读： 同一事务，同样的操作读取两次，发现多了几条或者少了几条。 <strong>新增 删除的打扰</strong></p>
+<p>​    说明：</p>
+<ul>
+<li><p>a事务 <strong>修改全表数据行</strong>， b事务<strong>插入一条新数据</strong> a事务发现还有一条没有修改 ，就像发生幻觉一样。</p>
+</li>
+<li><p>事务T1：查询表中所有记录</p>
+<pre><code>--&gt;事务T2：插入一条记录
+--&gt;事务T2：调用commit进行提交</code></pre><p>事务T1：再次查询表中所有记录</p>
+<p>此时事务T1两次查询到的记录是不一样的，称为幻读。</p>
+</li>
+</ul>
+<p>​      解决：</p>
+<ul>
+<li>采用范围锁，锁定检索范围只读。</li>
+</ul>
+</li>
+<li><p>不可重复读： 统一事务读取两次，发现<strong>内容不同</strong></p>
+<p>​        原因：执行select不加读锁（别人就改了）</p>
+<p>​    解决：</p>
+<ul>
+<li>推迟事务2执行，知道事务1提交或回退。</li>
+<li>在事务提交时检查事务的顺序性，可以让事务2先提交，事务1后提交时，如果顺序是（1-&gt;2)则事务1会回退重读   (2 -&gt; 1) 那没事了</li>
+<li>读取数据加 共享锁  修改数据加排它锁  都是 <strong>事务提交才释放锁</strong></li>
+</ul>
+</li>
+<li><p>丢失修改</p>
+<ul>
+<li>a事务读取数据，更新数据   b事务读取数据  更新数据  ，a先提交 ，b后提交 ，a的修改操作丢失了     解决+ 排它锁</li>
+</ul>
+</li>
+<li><p>事务隔离五种级别：</p>
+<ul>
+<li>TRANSACTION_NONE  不使用事务。</li>
+<li>TRANSACTION_READ_UNCOMMITTED  允许脏读。</li>
+<li>TRANSACTION_READ_COMMITTED  防止脏读，最常用的隔离级别,并且是大多数数据库的默认隔离级别。</li>
+<li>TRANSACTION_REPEATABLE_READ  可以防止脏读和不可重复读。</li>
+<li>TRANSACTION_SERIALIZABLE  可以防止脏读，不可重复读取和幻读，（事务串行化）会降低数据库的效率。</li>
+</ul>
+</li>
+</ol>
+<p>乐观锁CAS &amp; 悲观锁</p>
 <ul>
 <li><p>数据库</p>
 <ul>
@@ -785,6 +833,7 @@
 <li>文件获取长度 length（）方法</li>
 </ul>
 <h4 id="介绍数据库索引"><a href="#介绍数据库索引" class="headerlink" title="介绍数据库索引"></a>介绍数据库索引</h4><p>1、索引的种类4，索引生效时刻，主键、组合，普通，聚集索引和非聚集索引</p>
+<h4 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h4><p>线程安全需要你使多个线程安全有序的访问修改同一个资源，而不会造成冲突。（修改丢弃、脏读、不可重复读</p>
 
       
     </div>
@@ -1098,7 +1147,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-基础"><span class="nav-number">1.</span> <span class="nav-text">Java 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异常类"><span class="nav-number">1.1.</span> <span class="nav-text">异常类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#异常说明"><span class="nav-number">1.1.1.</span> <span class="nav-text">异常说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继承关系"><span class="nav-number">1.1.2.</span> <span class="nav-text">继承关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Throw-amp-Throws"><span class="nav-number">1.1.3.</span> <span class="nav-text">Throw &amp; Throws</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Finally"><span class="nav-number">1.1.4.</span> <span class="nav-text">Finally</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java容器"><span class="nav-number">1.2.</span> <span class="nav-text">Java容器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#容器模型"><span class="nav-number">1.2.1.</span> <span class="nav-text">容器模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装箱-amp-拆箱"><span class="nav-number">1.2.2.</span> <span class="nav-text">装箱&amp;拆箱</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaI-O流"><span class="nav-number">1.3.</span> <span class="nav-text">JavaI/O流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符流"><span class="nav-number">1.3.1.</span> <span class="nav-text">字符流</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java并发"><span class="nav-number">1.4.</span> <span class="nav-text">Java并发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线程内存模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">线程内存模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程工作状态"><span class="nav-number">1.4.2.</span> <span class="nav-text">线程工作状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程内部方法"><span class="nav-number">1.4.3.</span> <span class="nav-text">线程内部方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单线程"><span class="nav-number">1.4.4.</span> <span class="nav-text">单线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程"><span class="nav-number">1.4.5.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用线程池"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">使用线程池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用线程池"><span class="nav-number">1.4.5.2.</span> <span class="nav-text">常用线程池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程生命周期"><span class="nav-number">1.4.5.3.</span> <span class="nav-text">线程生命周期</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器并发"><span class="nav-number">1.4.6.</span> <span class="nav-text">容器并发</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CopyOnWrite容器"><span class="nav-number">1.4.6.1.</span> <span class="nav-text">CopyOnWrite容器</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#优点"><span class="nav-number">1.4.6.1.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#缺点"><span class="nav-number">1.4.6.1.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#使用场景"><span class="nav-number">1.4.6.1.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ConcurrentHashMap"><span class="nav-number">1.4.6.2.</span> <span class="nav-text">ConcurrentHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#分段锁原理"><span class="nav-number">1.4.6.2.1.</span> <span class="nav-text">分段锁原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁机制"><span class="nav-number">1.4.7.</span> <span class="nav-text">锁机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAP"><span class="nav-number">1.5.</span> <span class="nav-text">CAP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性算法"><span class="nav-number">1.5.1.</span> <span class="nav-text">一致性算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Paxos决议达成一致"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">Paxos决议达成一致</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ZAB原子消息广播协议"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">ZAB原子消息广播协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Raft"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">Raft</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java网络通讯"><span class="nav-number">1.6.</span> <span class="nav-text">Java网络通讯</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#NIO"><span class="nav-number">1.6.1.</span> <span class="nav-text">NIO</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库原理"><span class="nav-number">1.7.</span> <span class="nav-text">数据库原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#垂直切分-amp-水平切分"><span class="nav-number">1.7.1.</span> <span class="nav-text">垂直切分&amp;水平切分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引"><span class="nav-number">1.7.2.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#索引种类"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">索引种类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索建立时机"><span class="nav-number">1.7.2.2.</span> <span class="nav-text">索建立时机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索引不足"><span class="nav-number">1.7.2.3.</span> <span class="nav-text">索引不足</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyISAM-amp-InnoDB引擎"><span class="nav-number">1.7.3.</span> <span class="nav-text">MyISAM&amp;InnoDB引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三范式"><span class="nav-number">1.7.4.</span> <span class="nav-text">三范式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">1.8.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#equal-hashcode区别"><span class="nav-number">1.8.1.</span> <span class="nav-text">== equal hashcode区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接口和抽象类"><span class="nav-number">1.8.2.</span> <span class="nav-text">接口和抽象类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强制类型转换错误"><span class="nav-number">1.8.3.</span> <span class="nav-text">强制类型转换错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#length方法"><span class="nav-number">1.8.4.</span> <span class="nav-text">length方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#介绍数据库索引"><span class="nav-number">1.8.5.</span> <span class="nav-text">介绍数据库索引</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-基础"><span class="nav-number">1.</span> <span class="nav-text">Java 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异常类"><span class="nav-number">1.1.</span> <span class="nav-text">异常类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#异常说明"><span class="nav-number">1.1.1.</span> <span class="nav-text">异常说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继承关系"><span class="nav-number">1.1.2.</span> <span class="nav-text">继承关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Throw-amp-Throws"><span class="nav-number">1.1.3.</span> <span class="nav-text">Throw &amp; Throws</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Finally"><span class="nav-number">1.1.4.</span> <span class="nav-text">Finally</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java容器"><span class="nav-number">1.2.</span> <span class="nav-text">Java容器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#容器模型"><span class="nav-number">1.2.1.</span> <span class="nav-text">容器模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装箱-amp-拆箱"><span class="nav-number">1.2.2.</span> <span class="nav-text">装箱&amp;拆箱</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaI-O流"><span class="nav-number">1.3.</span> <span class="nav-text">JavaI/O流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符流"><span class="nav-number">1.3.1.</span> <span class="nav-text">字符流</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java并发"><span class="nav-number">1.4.</span> <span class="nav-text">Java并发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线程内存模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">线程内存模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程工作状态"><span class="nav-number">1.4.2.</span> <span class="nav-text">线程工作状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程内部方法"><span class="nav-number">1.4.3.</span> <span class="nav-text">线程内部方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单线程"><span class="nav-number">1.4.4.</span> <span class="nav-text">单线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程"><span class="nav-number">1.4.5.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用线程池"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">使用线程池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用线程池"><span class="nav-number">1.4.5.2.</span> <span class="nav-text">常用线程池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程生命周期"><span class="nav-number">1.4.5.3.</span> <span class="nav-text">线程生命周期</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器并发"><span class="nav-number">1.4.6.</span> <span class="nav-text">容器并发</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CopyOnWrite容器"><span class="nav-number">1.4.6.1.</span> <span class="nav-text">CopyOnWrite容器</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#优点"><span class="nav-number">1.4.6.1.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#缺点"><span class="nav-number">1.4.6.1.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#使用场景"><span class="nav-number">1.4.6.1.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ConcurrentHashMap"><span class="nav-number">1.4.6.2.</span> <span class="nav-text">ConcurrentHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#分段锁原理"><span class="nav-number">1.4.6.2.1.</span> <span class="nav-text">分段锁原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁机制"><span class="nav-number">1.4.7.</span> <span class="nav-text">锁机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAP"><span class="nav-number">1.5.</span> <span class="nav-text">CAP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性算法"><span class="nav-number">1.5.1.</span> <span class="nav-text">一致性算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Paxos决议达成一致"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">Paxos决议达成一致</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ZAB原子消息广播协议"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">ZAB原子消息广播协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Raft"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">Raft</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java网络通讯"><span class="nav-number">1.6.</span> <span class="nav-text">Java网络通讯</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#NIO"><span class="nav-number">1.6.1.</span> <span class="nav-text">NIO</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库原理"><span class="nav-number">1.7.</span> <span class="nav-text">数据库原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#垂直切分-amp-水平切分"><span class="nav-number">1.7.1.</span> <span class="nav-text">垂直切分&amp;水平切分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引"><span class="nav-number">1.7.2.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#索引种类"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">索引种类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索建立时机"><span class="nav-number">1.7.2.2.</span> <span class="nav-text">索建立时机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索引不足"><span class="nav-number">1.7.2.3.</span> <span class="nav-text">索引不足</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyISAM-amp-InnoDB引擎"><span class="nav-number">1.7.3.</span> <span class="nav-text">MyISAM&amp;InnoDB引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三范式"><span class="nav-number">1.7.4.</span> <span class="nav-text">三范式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">1.8.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#equal-hashcode区别"><span class="nav-number">1.8.1.</span> <span class="nav-text">== equal hashcode区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接口和抽象类"><span class="nav-number">1.8.2.</span> <span class="nav-text">接口和抽象类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强制类型转换错误"><span class="nav-number">1.8.3.</span> <span class="nav-text">强制类型转换错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#length方法"><span class="nav-number">1.8.4.</span> <span class="nav-text">length方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#介绍数据库索引"><span class="nav-number">1.8.5.</span> <span class="nav-text">介绍数据库索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程安全问题"><span class="nav-number">1.8.6.</span> <span class="nav-text">线程安全问题</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1132,7 +1181,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">49k</span>
+    <span title="站点总字数">50k</span>
   
 
 
@@ -1143,7 +1192,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">44 分钟</span>
+    <span title="站点阅读时长">45 分钟</span>
   
 </div>
 
@@ -1174,7 +1223,7 @@ var _hmt = _hmt || [];
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共12.4k字</span>
+  <span class="post-count">博客全站共12.9k字</span>
 </div>
 
 
