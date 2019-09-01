@@ -115,7 +115,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/08/31/images/1567301589476.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/31/images/70">
 <meta property="og:image" content="http://yoursite.com/2019/08/31/images/71">
-<meta property="og:updated_time" content="2019-09-01T03:38:00.093Z">
+<meta property="og:updated_time" content="2019-09-01T04:22:08.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java基础（二)">
 <meta name="twitter:description" content="Java基础二其他Equals &amp;amp; hashcode 为什么重写equals还要重写hashcode 引入了hashCode()这个方法，只是为了提高equals效率  保证相同对象有相同的hashcode   （在hashMap中  key相同 hashcode value 不同 （不会被覆盖） ​                            key相同 hashcode va">
@@ -452,7 +452,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">4.8k</span>
+              <span title="本文字数">5.4k</span>
             </span>
           
 
@@ -464,7 +464,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">4 分钟</span>
+              <span title="阅读时长">5 分钟</span>
             </span>
           
 
@@ -566,7 +566,8 @@
 
 </li>
 </ol>
-<h3 id="值传递和引用传递"><a href="#值传递和引用传递" class="headerlink" title="值传递和引用传递"></a>值传递和引用传递</h3><ol>
+<h3 id="值传递和引用传递"><a href="#值传递和引用传递" class="headerlink" title="值传递和引用传递"></a>值传递和引用传递</h3><p>这个要和不可变类（没有 不允许） &amp; 可变类挂钩（拥有改变自身的引用类型 类似setX）</p>
+<ol>
 <li><p><strong>基本类型和引用类型</strong></p>
 <p>num是基本类型，变量直接保存值。</p>
 <p>str是引用类型，变量保存对象的地址</p>
@@ -616,6 +617,11 @@
 <td align="center">内部数据会改变</td>
 <td align="center">线程安全，内部数据不会改变。常量池</td>
 </tr>
+<tr>
+<td align="center"></td>
+<td align="center">值传递</td>
+<td align="center">引用传递</td>
+</tr>
 </tbody></table>
 <p>不可变特性主要为了满足常量池、线程安全、类加载的需求。合理使用不可变类可以带来极大的好处。</p>
 <p>例如</p>
@@ -634,6 +640,13 @@
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">MyImmutable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span>[] myArray;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyImmutable</span><span class="params">(<span class="keyword">int</span>[] array)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.myArray = array.clone();</span><br><span class="line">        <span class="comment">//而不是 this.myArray = array;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="int-和-Integer-有什么区别"><a href="#int-和-Integer-有什么区别" class="headerlink" title="int 和 Integer 有什么区别"></a>int 和 Integer 有什么区别</h3><ol>
+<li>int 基本数据结构 、 Integer 是包装类  ，包装类内有大量方法提供对该类型的数据进行操作，也对equals hashcode进行重写，Integer -127 128 有缓存机制， 所以 可以equals 但是 超过不行。包装类因此可以自动拆装箱，另外ArrayList这些容器因为不定长，支持泛型，所以只支持包装类。</li>
+<li>两者都是不可变类，final类方法 没有set 拿去没有final需要clone ，线程安全，符合常量池、类加载需求，他们没有对应的引用传递</li>
+<li>自动拆装箱 语法糖 java自动帮我们转换：装箱 Integer.valueOf() 拆箱:Integer.intValue()所以要注意无意识的拆装箱 （数据量大开销大）</li>
+<li>值缓存（有范围）Integer i1 = 1;     ||Integer i2 = Integer.valueOf(2);        ||   Integer i3 = new Integer(3);     1 2 就用到值缓存，而三没有 （1 自动装箱 同二一致）String <strong>默认都只会将绝对值较小的值放入缓存</strong></li>
+<li>线程不安全的：基本数据类型时线程不安全（封装类是不可变类 所以线程安全）AtomicInteger、AtomicLong</li>
+</ol>
 
       
     </div>
@@ -973,7 +986,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java基础二"><span class="nav-number">1.</span> <span class="nav-text">Java基础二</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">1.1.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Equals-amp-hashcode"><span class="nav-number">1.1.1.</span> <span class="nav-text">Equals &amp; hashcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java8新特性"><span class="nav-number">1.1.2.</span> <span class="nav-text">java8新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型"><span class="nav-number">1.1.3.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值传递和引用传递"><span class="nav-number">1.1.4.</span> <span class="nav-text">值传递和引用传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayList-amp-Array"><span class="nav-number">1.1.5.</span> <span class="nav-text">ArrayList &amp; Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Immutable机制"><span class="nav-number">1.1.6.</span> <span class="nav-text">Java Immutable机制</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java基础二"><span class="nav-number">1.</span> <span class="nav-text">Java基础二</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">1.1.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Equals-amp-hashcode"><span class="nav-number">1.1.1.</span> <span class="nav-text">Equals &amp; hashcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java8新特性"><span class="nav-number">1.1.2.</span> <span class="nav-text">java8新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型"><span class="nav-number">1.1.3.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值传递和引用传递"><span class="nav-number">1.1.4.</span> <span class="nav-text">值传递和引用传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayList-amp-Array"><span class="nav-number">1.1.5.</span> <span class="nav-text">ArrayList &amp; Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Immutable机制"><span class="nav-number">1.1.6.</span> <span class="nav-text">Java Immutable机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int-和-Integer-有什么区别"><span class="nav-number">1.1.7.</span> <span class="nav-text">int 和 Integer 有什么区别</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1018,7 +1031,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">55 分钟</span>
+    <span title="站点阅读时长">56 分钟</span>
   
 </div>
 
@@ -1049,7 +1062,7 @@ var _hmt = _hmt || [];
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共16.4k字</span>
+  <span class="post-count">博客全站共16.8k字</span>
 </div>
 
 
