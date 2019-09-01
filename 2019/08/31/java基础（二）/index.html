@@ -101,18 +101,22 @@
   };
 </script>
 
-  <meta name="description" content="Java基础二其他Equals &amp;amp; hashcode 为什么重写equals还要重写hashcode 不重写的情况下，equal 与=  、hashcode 只是简单的比较对象的内存地址。 重写情况equal下，比较方式发生了变化，  equal 比较对象内的成员变量的值是否相等，但是对象a 对象b 成员变量值相等，但是hashcode未重写的情况下还是直接判断内存地址，所以需要并重写ha">
+  <meta name="description" content="Java基础二其他Equals &amp;amp; hashcode 为什么重写equals还要重写hashcode 引入了hashCode()这个方法，只是为了提高equals效率  保证相同对象有相同的hashcode   （在hashMap中  key相同 hashcode value 不同 （不会被覆盖） ​                            key相同 hashcode va">
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java基础（二)">
 <meta property="og:url" content="http://yoursite.com/2019/08/31/java基础（二）/index.html">
 <meta property="og:site_name" content="modalala">
-<meta property="og:description" content="Java基础二其他Equals &amp;amp; hashcode 为什么重写equals还要重写hashcode 不重写的情况下，equal 与=  、hashcode 只是简单的比较对象的内存地址。 重写情况equal下，比较方式发生了变化，  equal 比较对象内的成员变量的值是否相等，但是对象a 对象b 成员变量值相等，但是hashcode未重写的情况下还是直接判断内存地址，所以需要并重写ha">
+<meta property="og:description" content="Java基础二其他Equals &amp;amp; hashcode 为什么重写equals还要重写hashcode 引入了hashCode()这个方法，只是为了提高equals效率  保证相同对象有相同的hashcode   （在hashMap中  key相同 hashcode value 不同 （不会被覆盖） ​                            key相同 hashcode va">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-31T15:35:38.084Z">
+<meta property="og:image" content="http://yoursite.com/2019/08/31/images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNTc0NTcx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="http://yoursite.com/2019/08/31/images/adddasdafsdf">
+<meta property="og:image" content="http://yoursite.com/2019/08/31/images/1567301589476.png">
+<meta property="og:updated_time" content="2019-09-01T01:33:19.269Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java基础（二)">
-<meta name="twitter:description" content="Java基础二其他Equals &amp;amp; hashcode 为什么重写equals还要重写hashcode 不重写的情况下，equal 与=  、hashcode 只是简单的比较对象的内存地址。 重写情况equal下，比较方式发生了变化，  equal 比较对象内的成员变量的值是否相等，但是对象a 对象b 成员变量值相等，但是hashcode未重写的情况下还是直接判断内存地址，所以需要并重写ha">
+<meta name="twitter:description" content="Java基础二其他Equals &amp;amp; hashcode 为什么重写equals还要重写hashcode 引入了hashCode()这个方法，只是为了提高equals效率  保证相同对象有相同的hashcode   （在hashMap中  key相同 hashcode value 不同 （不会被覆盖） ​                            key相同 hashcode va">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/31/images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNTc0NTcx,size_16,color_FFFFFF,t_70">
 
 
 
@@ -445,7 +449,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">1.2k</span>
+              <span title="本文字数">3.5k</span>
             </span>
           
 
@@ -457,7 +461,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">1 分钟</span>
+              <span title="阅读时长">3 分钟</span>
             </span>
           
 
@@ -478,8 +482,18 @@
       
         <h1 id="Java基础二"><a href="#Java基础二" class="headerlink" title="Java基础二"></a>Java基础二</h1><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="Equals-amp-hashcode"><a href="#Equals-amp-hashcode" class="headerlink" title="Equals &amp; hashcode"></a>Equals &amp; hashcode</h3><ol>
 <li><p>为什么重写equals还要重写hashcode</p>
-<p>不重写的情况下，equal 与=  、hashcode 只是简单的比较对象的内存地址。</p>
-<p>重写情况equal下，比较方式发生了变化，  equal 比较对象内的成员变量的值是否相等，但是对象a 对象b 成员变量值相等，但是hashcode未重写的情况下还是直接判断内存地址，所以需要并重写hashcode。</p>
+<p><strong>引入了hashCode()这个方法，只是为了提高equals效率</strong></p>
+<ol>
+<li><p>保证相同对象有相同的hashcode  </p>
+<p>（在hashMap中  key相同 hashcode value 不同 （不会被覆盖）</p>
+<p>​                            key相同 hashcode value 相同  （会覆盖）</p>
+<p> （在hashSet中  同理 因为hashcode不同 导致（本来应该相同的对象不出现）结果出现了</p>
+</li>
+<li><p>两个对象hashCode相同 ，<strong>它们并不一定相同</strong>（这里说的对象相同指的是用eqauls方法比较）</p>
+</li>
+</ol>
+<p>不重写的情况下，= 比较基本数据类型的值 、 equals 调用 hashcode 返回对象的地址 比较，</p>
+<p>重写情况equal下，比较方式发生了变化，  equal 调用 hashcode 返回对象的地址比较 之后再比较对象内的成员变量的值是否相等，但是对象a 对象b 成员变量值相等，但是hashcode未重写的情况下还是直接判断内存地址，所以需要并重写hashcode。</p>
 </li>
 </ol>
 <ol start="2">
@@ -487,33 +501,82 @@
 <p>hashCode 相当于key，value 对应 哈希值和散列码  散列码就是哈希函数根据哈希值和对象映射出来的唯一一个值，作为内存地址，  例如 数组 5    f(x) = y%5   数字是 6  则 存在 1的位置上，还有哈希冲突（线程探测、二次探测、伪随机探测、链地址发、 公共溢出区 ）</p>
 </li>
 </ol>
+<ol start="3">
+<li>== 作用与基本的数据类型   作用于应用类型变量（比较指向对象内存地址）、    equals <strong>不 作用</strong>于基本数据类型（没重写就是比较引用类型的变量所指向的对象的地址）</li>
+</ol>
 <h3 id="java8新特性"><a href="#java8新特性" class="headerlink" title="java8新特性"></a>java8新特性</h3><ol>
 <li><p>Lambda表达式 &amp;函数式接口</p>
-<p>   <strong>Lambda表达式</strong>  函数作为参数   传递给某个方法</p>
+<p><strong>Lambda表达式</strong>  函数作为参数   传递给某个方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Arrays.asList(<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>).forEach(e -&gt; sout(e));</span><br><span class="line"></span><br><span class="line"><span class="comment">//复杂语句块</span></span><br><span class="line">Arrays.asList(<span class="string">"a"</span>,<span class="string">"n"</span>,<span class="string">"c"</span>).forEach( e -&gt;&#123;</span><br><span class="line">    sout(e);</span><br><span class="line">    sout(e);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//应用类成员和局部变量</span></span><br><span class="line"><span class="keyword">final</span> String spearator = <span class="string">","</span>;</span><br><span class="line">Arrays.asList(<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>.forEach(</span><br><span class="line">    (String e) -&gt; sout(e + spearator);</span><br><span class="line">));</span><br><span class="line"><span class="comment">//返回值</span></span><br><span class="line">Arrays.asList(<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>).sort((e1,e2) -&gt; e1.compareTo(e2));</span><br><span class="line">Arrays.asList(<span class="string">"a"</span>,<span class="string">"b"</span>).sort((e1,e2) -&gt;&#123;</span><br><span class="line">    <span class="keyword">int</span> result = e1.compareTo(e2);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p> Lambda表达式良好兼容 -&gt; <strong>函数接口</strong>，（只有一个函数的接口） 该接口可以隐式转换Lambda表达式  <strong>默认方法</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函数式接口</span></span><br><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Functional</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//默认方法</span></span><br><span class="line">    <span class="comment">// 高可用 该接口新增方法时 不需要在 已实现该接口的类也添加方法</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">defaultMethod</span><span class="params">()</span></span>&#123;...&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>方法引用</strong> 和 landba表达式紧密联系 -&gt; java构造方法紧密 简洁</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>   优点：简洁、易并行计算</p>
+<p>   缺点：可读性、不容易调试</p>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ol>
+<li><p>基本数据类型</p>
+<p>byte  1   short  2 int 4  long 8 |  char  2  boolean float 4 double  8</p>
+</li>
+<li><p>应用数据类型</p>
+<p>ArrayList 、Vector、LinkedList   |||  HashSet TreeSet |||   HashMap HashTable LinkedHashMap TreeMap</p>
+</li>
+<li><p>自动拆装箱</p>
+<ol>
+<li><p>自动装箱</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer i = <span class="number">100</span>;</span><br><span class="line">Integer i = Integer.valueOf(<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
 
 
 
+</li>
+</ol>
 </li>
 </ol>
 <ol start="2">
-<li><p>是的发生的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
-
-
-
-
+<li><p>自动拆箱</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> one = i;</span><br><span class="line"><span class="keyword">int</span> one = i.intValue();</span><br></pre></td></tr></table></figure>
 
 
 
 </li>
 </ol>
+<ol start="3">
+<li><p>在-128~127内的情况  (封装类有更多的重写方法)</p>
+<p>封装类的缓存机制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Integer i = 100;     Integer cache = new Integer(100)</span><br><span class="line">Integer b = 100;     Integer i  b  = cache</span><br><span class="line">//( i == b ) == true;</span><br><span class="line">Integer a = 200;   -相当&gt; Integer a = new Integer(200)</span><br><span class="line">Integer b = 200;   -相当&gt; Integer b = new Integer(200)</span><br><span class="line">// (a == b) == false;</span><br><span class="line">在 -128 到 127 Integer.valueOf(int i ) </span><br><span class="line">返回的是缓存对象  所以 i b 指的是同一个对象</span><br><span class="line"></span><br><span class="line">String s1 =&quot;abc&quot;;</span><br><span class="line">String s2 =&quot;abc&quot;;  s1 = s2  true</span><br><span class="line">String s3 = new String(&quot;abc&quot;);</span><br><span class="line">String s4 = new String(&quot;abc&quot;); s3 != s4 true</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="值传递和引用传递"><a href="#值传递和引用传递" class="headerlink" title="值传递和引用传递"></a>值传递和引用传递</h3><ol>
+<li><p><strong>基本类型和应用类型</strong></p>
+<p>num是基本类型，变量直接保存值。</p>
+<p>str是引用类型，变量保存对象的地址</p>
+<p><img src="../images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNTc0NTcx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+<li><p>赋值运算符（=）的作用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num = <span class="number">20</span>;</span><br><span class="line">str = <span class="string">"java"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>num是基本类型, 改变变量的值</p>
+<p> str是引用类型，改变变量的地址</p>
+<p><img src="../images/adddasdafsdf" alt="在这里插入图片描述"></p>
+</li>
+<li><p>调用方法  -&gt; 赋值操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;    基本类型</span><br><span class="line">    value = <span class="number">100</span>;       <span class="comment">//num = 20 </span></span><br><span class="line">&#125;                      <span class="comment">//value = 20</span></span><br><span class="line">                       <span class="comment">//value = 100</span></span><br><span class="line">foo(num); <span class="comment">// num 没有被改变</span></span><br><span class="line">                         没有提供改变自身方法的引用类型</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(String text)</span> </span>&#123;  <span class="comment">//str = 0x11"java"</span></span><br><span class="line">    text = <span class="string">"windows"</span>;    <span class="comment">//text= 0x11"java"</span></span><br><span class="line">                         <span class="comment">//text= 0x12"windwos"</span></span><br><span class="line">&#125;</span><br><span class="line">foo(str); <span class="comment">// str 也没有被改变</span></span><br><span class="line"></span><br><span class="line">StringBuilder sb = <span class="keyword">new</span> StringBuilder(<span class="string">"iphone"</span>);</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(StringBuilder builder)</span> </span>&#123;     </span><br><span class="line">    builder.append(<span class="string">"4"</span>);  提供了改变自身方法的引用类型</span><br><span class="line">&#125;</span><br><span class="line">foo(sb); <span class="comment">// sb 被改变了，变成了"iphone4"。</span></span><br><span class="line"></span><br><span class="line">StringBuilder sb = <span class="keyword">new</span> StringBuilder(<span class="string">"iphone"</span>);</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(StringBuilder builder)</span> </span>&#123;  提供了改变自身方法的引用类型，</span><br><span class="line">                                   但是不使用，而是使用赋值运算符。</span><br><span class="line">    builder = <span class="keyword">new</span> StringBuilder(<span class="string">"ipad"</span>); </span><br><span class="line">&#125;</span><br><span class="line">foo(sb); <span class="comment">// sb 没有被改变，还是 "iphone"。</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p>   总结：</p>
+<ol>
+<li>基本数据类型传值：形参不会修改实参。</li>
+<li>引用类型传引用，形参实参指向同一个内存地址，所以对参数的修改会影响到实际的对象。</li>
+<li>String、Integer，Double 等Immutable（不可变类）<strong>特殊处理</strong>，可以理解为传值，最后的操作不会修改实参对象。</li>
+</ol>
+<p><img src="../images/1567301589476.png" alt="1567301589476"></p>
 
       
     </div>
@@ -853,7 +916,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java基础二"><span class="nav-number">1.</span> <span class="nav-text">Java基础二</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">1.1.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Equals-amp-hashcode"><span class="nav-number">1.1.1.</span> <span class="nav-text">Equals &amp; hashcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java8新特性"><span class="nav-number">1.1.2.</span> <span class="nav-text">java8新特性</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java基础二"><span class="nav-number">1.</span> <span class="nav-text">Java基础二</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">1.1.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Equals-amp-hashcode"><span class="nav-number">1.1.1.</span> <span class="nav-text">Equals &amp; hashcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java8新特性"><span class="nav-number">1.1.2.</span> <span class="nav-text">java8新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型"><span class="nav-number">1.1.3.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值传递和引用传递"><span class="nav-number">1.1.4.</span> <span class="nav-text">值传递和引用传递</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -887,7 +950,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">57k</span>
+    <span title="站点总字数">59k</span>
   
 
 
@@ -898,7 +961,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">52 分钟</span>
+    <span title="站点阅读时长">54 分钟</span>
   
 </div>
 
@@ -929,7 +992,7 @@ var _hmt = _hmt || [];
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共15.2k字</span>
+  <span class="post-count">博客全站共15.9k字</span>
 </div>
 
 
