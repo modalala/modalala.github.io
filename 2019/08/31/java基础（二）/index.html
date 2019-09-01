@@ -109,14 +109,17 @@
 <meta property="og:site_name" content="modalala">
 <meta property="og:description" content="Java基础二其他Equals &amp;amp; hashcode 为什么重写equals还要重写hashcode 引入了hashCode()这个方法，只是为了提高equals效率  保证相同对象有相同的hashcode   （在hashMap中  key相同 hashcode value 不同 （不会被覆盖） ​                            key相同 hashcode va">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/08/31/images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1Fpb29vYmE=,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="http://yoursite.com/2019/08/31/images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNTc0NTcx,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="http://yoursite.com/2019/08/31/images/adddasdafsdf">
 <meta property="og:image" content="http://yoursite.com/2019/08/31/images/1567301589476.png">
-<meta property="og:updated_time" content="2019-09-01T01:33:19.269Z">
+<meta property="og:image" content="http://yoursite.com/2019/08/31/images/70">
+<meta property="og:image" content="http://yoursite.com/2019/08/31/images/71">
+<meta property="og:updated_time" content="2019-09-01T03:38:00.093Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java基础（二)">
 <meta name="twitter:description" content="Java基础二其他Equals &amp;amp; hashcode 为什么重写equals还要重写hashcode 引入了hashCode()这个方法，只是为了提高equals效率  保证相同对象有相同的hashcode   （在hashMap中  key相同 hashcode value 不同 （不会被覆盖） ​                            key相同 hashcode va">
-<meta name="twitter:image" content="http://yoursite.com/2019/08/31/images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNTc0NTcx,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/31/images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1Fpb29vYmE=,size_16,color_FFFFFF,t_70">
 
 
 
@@ -449,7 +452,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">3.5k</span>
+              <span title="本文字数">4.8k</span>
             </span>
           
 
@@ -461,7 +464,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">3 分钟</span>
+              <span title="阅读时长">4 分钟</span>
             </span>
           
 
@@ -502,8 +505,17 @@
 </li>
 </ol>
 <ol start="3">
-<li>== 作用与基本的数据类型   作用于应用类型变量（比较指向对象内存地址）、    equals <strong>不 作用</strong>于基本数据类型（没重写就是比较引用类型的变量所指向的对象的地址）</li>
+<li>== 作用与基本的数据类型    作用于应用类型变量（比较指向对象内存地址）、    equals <strong>不 作用</strong>于基本数据类型（没重写就是比较引用类型的变量所指向的对象的地址）</li>
 </ol>
+<p>   总结：</p>
+<pre><code>== 是比较基本数据类型的值 ，**数据类型和变量的值都一致时才返回true。**</code></pre><p>   如果是引用数据类型的话（不可变类String（字符常量池 字符相同有相同的地址  如果是连接  String连接后面的字符串值在编译时确定下来，不能直接引用常量池中的） Integer 等包装类已经重写equal和hashcode （Integer -127 128 有缓存机制 两个Integer才相等  ，如果Integer 和 int 会自动拆箱  两个int相等）</p>
+<p>   只有当它们指向同一个对象时才返回true。</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String str1 = &quot;a&quot;;</span><br><span class="line">String str2 = &quot;b&quot;;</span><br><span class="line">String str3 = &quot;ab&quot;;</span><br><span class="line">string str4 = &quot;a&quot; + &quot;b&quot;;  // str3 == str4 true  string str4 = &quot;ab&quot;;</span><br><span class="line">string str5 = str1 + str2 // str5 != str3    str1 + str2 = new String(&quot;ab&quot;)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <h3 id="java8新特性"><a href="#java8新特性" class="headerlink" title="java8新特性"></a>java8新特性</h3><ol>
 <li><p>Lambda表达式 &amp;函数式接口</p>
 <p><strong>Lambda表达式</strong>  函数作为参数   传递给某个方法</p>
@@ -520,7 +532,11 @@
 <h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ol>
 <li><p>基本数据类型</p>
 <p>byte  1   short  2 int 4  long 8 |  char  2  boolean float 4 double  8</p>
+<p><img src="../images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1Fpb29vYmE=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">封装类</p>
+<p>  好处</p>
 </li>
+</ol>
+<ol start="2">
 <li><p>应用数据类型</p>
 <p>ArrayList 、Vector、LinkedList   |||  HashSet TreeSet |||   HashMap HashTable LinkedHashMap TreeMap</p>
 </li>
@@ -551,7 +567,7 @@
 </li>
 </ol>
 <h3 id="值传递和引用传递"><a href="#值传递和引用传递" class="headerlink" title="值传递和引用传递"></a>值传递和引用传递</h3><ol>
-<li><p><strong>基本类型和应用类型</strong></p>
+<li><p><strong>基本类型和引用类型</strong></p>
 <p>num是基本类型，变量直接保存值。</p>
 <p>str是引用类型，变量保存对象的地址</p>
 <p><img src="../images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNTc0NTcx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
@@ -577,6 +593,47 @@
 <li>String、Integer，Double 等Immutable（不可变类）<strong>特殊处理</strong>，可以理解为传值，最后的操作不会修改实参对象。</li>
 </ol>
 <p><img src="../images/1567301589476.png" alt="1567301589476"></p>
+<h3 id="ArrayList-amp-Array"><a href="#ArrayList-amp-Array" class="headerlink" title="ArrayList &amp; Array"></a>ArrayList &amp; Array</h3><ul>
+<li>Array:定长数组，长度不变</li>
+<li>ArrayList：不定长数组，（相当数组的二次封装），加入泛型机制，存储基本数据类型的封装类（加入时会自动装箱） ArrayList<integer> 这样</integer></li>
+</ul>
+<h3 id="Java-Immutable机制"><a href="#Java-Immutable机制" class="headerlink" title="Java Immutable机制"></a>Java Immutable机制</h3><p><strong>mutable immutable优缺点</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">mutable（引用）</th>
+<th align="center">immutable</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">优点</td>
+<td align="center">减少数据拷贝，效率高</td>
+<td align="center">为了保证数据不变，需要大量临时拷贝，浪费空间</td>
+</tr>
+<tr>
+<td align="center">缺点</td>
+<td align="center">内部数据会改变</td>
+<td align="center">线程安全，内部数据不会改变。常量池</td>
+</tr>
+</tbody></table>
+<p>不可变特性主要为了满足常量池、线程安全、类加载的需求。合理使用不可变类可以带来极大的好处。</p>
+<p>例如</p>
+<p>StringBuilder  </p>
+<p><img src="../images/70" alt="img"></p>
+<p>String</p>
+<p><img src="../images/71" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">"a"</span>;</span><br><span class="line">s = s.concat(<span class="string">"b"</span>); <span class="comment">// s += b;</span></span><br><span class="line">StringBuilder sb = <span class="keyword">new</span> StringBuilder(<span class="string">"a"</span>);</span><br><span class="line">sb.append(<span class="string">"b"</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>构造Immutable类</strong></p>
+<ol>
+<li>filed成员被private final修饰。</li>
+<li>不提供setX</li>
+<li>使用final修饰自定义类，确保该类不会被重写。</li>
+<li>如果类中的成员为mutable类型，初始化该类或者get该成员时，使用深拷贝。<strong>确保类immutable。</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">MyImmutable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span>[] myArray;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyImmutable</span><span class="params">(<span class="keyword">int</span>[] array)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.myArray = array.clone();</span><br><span class="line">        <span class="comment">//而不是 this.myArray = array;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -916,7 +973,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java基础二"><span class="nav-number">1.</span> <span class="nav-text">Java基础二</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">1.1.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Equals-amp-hashcode"><span class="nav-number">1.1.1.</span> <span class="nav-text">Equals &amp; hashcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java8新特性"><span class="nav-number">1.1.2.</span> <span class="nav-text">java8新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型"><span class="nav-number">1.1.3.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值传递和引用传递"><span class="nav-number">1.1.4.</span> <span class="nav-text">值传递和引用传递</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java基础二"><span class="nav-number">1.</span> <span class="nav-text">Java基础二</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">1.1.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Equals-amp-hashcode"><span class="nav-number">1.1.1.</span> <span class="nav-text">Equals &amp; hashcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java8新特性"><span class="nav-number">1.1.2.</span> <span class="nav-text">java8新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型"><span class="nav-number">1.1.3.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值传递和引用传递"><span class="nav-number">1.1.4.</span> <span class="nav-text">值传递和引用传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayList-amp-Array"><span class="nav-number">1.1.5.</span> <span class="nav-text">ArrayList &amp; Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Immutable机制"><span class="nav-number">1.1.6.</span> <span class="nav-text">Java Immutable机制</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -950,7 +1007,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">59k</span>
+    <span title="站点总字数">61k</span>
   
 
 
@@ -961,7 +1018,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">54 分钟</span>
+    <span title="站点阅读时长">55 分钟</span>
   
 </div>
 
@@ -992,7 +1049,7 @@ var _hmt = _hmt || [];
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共15.9k字</span>
+  <span class="post-count">博客全站共16.4k字</span>
 </div>
 
 
