@@ -109,18 +109,18 @@
 <meta property="og:site_name" content="modalala">
 <meta property="og:description" content="Java基础二其他Equals &amp;amp; hashcode 为什么重写equals还要重写hashcode 引入了hashCode()这个方法，只是为了提高equals效率  保证相同对象有相同的hashcode   （在hashMap中  key相同 hashcode value 不同 （不会被覆盖） ​                            key相同 hashcode va">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/08/31/images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1Fpb29vYmE=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="http://yoursite.com/images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1Fpb29vYmE=,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="http://yoursite.com/2019/08/31/images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNTc0NTcx,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="http://yoursite.com/2019/08/31/images/adddasdafsdf">
-<meta property="og:image" content="http://yoursite.com/2019/08/31/images/1567301589476.png">
-<meta property="og:image" content="http://yoursite.com/2019/08/31/images/70">
-<meta property="og:image" content="http://yoursite.com/2019/08/31/images/71">
+<meta property="og:image" content="http://yoursite.com/images/adddasdafsdf">
+<meta property="og:image" content="http://yoursite.com/images/1567301589476.png">
+<meta property="og:image" content="http://yoursite.com/images/70">
+<meta property="og:image" content="http://yoursite.com/images/71">
 <meta property="og:image" content="http://yoursite.com/2019/08/31/images/1567325522445.png">
-<meta property="og:updated_time" content="2019-09-01T08:32:29.843Z">
+<meta property="og:updated_time" content="2019-09-02T12:42:38.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java基础（二)">
 <meta name="twitter:description" content="Java基础二其他Equals &amp;amp; hashcode 为什么重写equals还要重写hashcode 引入了hashCode()这个方法，只是为了提高equals效率  保证相同对象有相同的hashcode   （在hashMap中  key相同 hashcode value 不同 （不会被覆盖） ​                            key相同 hashcode va">
-<meta name="twitter:image" content="http://yoursite.com/2019/08/31/images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1Fpb29vYmE=,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="http://yoursite.com/images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1Fpb29vYmE=,size_16,color_FFFFFF,t_70">
 
 
 
@@ -533,7 +533,7 @@
 <h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ol>
 <li><p>基本数据类型</p>
 <p>byte  1   short  2 int 4  long 8 |  char  2  boolean float 4 double  8</p>
-<p><img src="../images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1Fpb29vYmE=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">封装类</p>
+<p><img src="/images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1Fpb29vYmE=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">封装类</p>
 <p>  好处</p>
 </li>
 </ol>
@@ -579,7 +579,7 @@
 
 <p>num是基本类型, 改变变量的值</p>
 <p> str是引用类型，改变变量的地址</p>
-<p><img src="../images/adddasdafsdf" alt="在这里插入图片描述"></p>
+<p><img src="/images/adddasdafsdf" alt="在这里插入图片描述"></p>
 </li>
 <li><p>调用方法  -&gt; 赋值操作</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;    基本类型</span><br><span class="line">    value = <span class="number">100</span>;       <span class="comment">//num = 20 </span></span><br><span class="line">&#125;                      <span class="comment">//value = 20</span></span><br><span class="line">                       <span class="comment">//value = 100</span></span><br><span class="line">foo(num); <span class="comment">// num 没有被改变</span></span><br><span class="line">                         没有提供改变自身方法的引用类型</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(String text)</span> </span>&#123;  <span class="comment">//str = 0x11"java"</span></span><br><span class="line">    text = <span class="string">"windows"</span>;    <span class="comment">//text= 0x11"java"</span></span><br><span class="line">                         <span class="comment">//text= 0x12"windwos"</span></span><br><span class="line">&#125;</span><br><span class="line">foo(str); <span class="comment">// str 也没有被改变</span></span><br><span class="line"></span><br><span class="line">StringBuilder sb = <span class="keyword">new</span> StringBuilder(<span class="string">"iphone"</span>);</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(StringBuilder builder)</span> </span>&#123;     </span><br><span class="line">    builder.append(<span class="string">"4"</span>);  提供了改变自身方法的引用类型</span><br><span class="line">&#125;</span><br><span class="line">foo(sb); <span class="comment">// sb 被改变了，变成了"iphone4"。</span></span><br><span class="line"></span><br><span class="line">StringBuilder sb = <span class="keyword">new</span> StringBuilder(<span class="string">"iphone"</span>);</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(StringBuilder builder)</span> </span>&#123;  提供了改变自身方法的引用类型，</span><br><span class="line">                                   但是不使用，而是使用赋值运算符。</span><br><span class="line">    builder = <span class="keyword">new</span> StringBuilder(<span class="string">"ipad"</span>); </span><br><span class="line">&#125;</span><br><span class="line">foo(sb); <span class="comment">// sb 没有被改变，还是 "iphone"。</span></span><br></pre></td></tr></table></figure>
@@ -594,7 +594,7 @@
 <li>引用类型传引用，形参实参指向同一个内存地址，所以对参数的修改会影响到实际的对象。</li>
 <li>String、Integer，Double 等Immutable（不可变类）<strong>特殊处理</strong>，可以理解为传值，最后的操作不会修改实参对象。</li>
 </ol>
-<p><img src="../images/1567301589476.png" alt="1567301589476"></p>
+<p><img src="/images/1567301589476.png" alt="1567301589476"></p>
 <h3 id="ArrayList-amp-Array"><a href="#ArrayList-amp-Array" class="headerlink" title="ArrayList &amp; Array"></a>ArrayList &amp; Array</h3><ul>
 <li>Array:定长数组，长度不变</li>
 <li>ArrayList：不定长数组，（相当数组的二次封装），加入泛型机制，存储基本数据类型的封装类（加入时会自动装箱） ArrayList<integer> 这样</integer></li>
@@ -627,9 +627,9 @@
 <p>不可变特性主要为了满足常量池、线程安全、类加载的需求。合理使用不可变类可以带来极大的好处。</p>
 <p>例如</p>
 <p>StringBuilder  </p>
-<p><img src="../images/70" alt="img"></p>
+<p><img src="/images/70" alt="img"></p>
 <p>String</p>
-<p><img src="../images/71" alt="img"></p>
+<p><img src="/images/71" alt="img"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">"a"</span>;</span><br><span class="line">s = s.concat(<span class="string">"b"</span>); <span class="comment">// s += b;</span></span><br><span class="line">StringBuilder sb = <span class="keyword">new</span> StringBuilder(<span class="string">"a"</span>);</span><br><span class="line">sb.append(<span class="string">"b"</span>);</span><br></pre></td></tr></table></figure>
 
 <p><strong>构造Immutable类</strong></p>
