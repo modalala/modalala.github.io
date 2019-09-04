@@ -554,7 +554,7 @@
 <li><p>Deployment 内部访问</p>
 </li>
 <li><p>Service 外部访问机制</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">kubectl get node #结点状态</span><br><span class="line">master01: vi /kubernetes/yml/nginx-deployment.yml #设置deployment</span><br><span class="line">kubectl create -f nginx-deployment.yml</span><br><span class="line">kubectl get pod #查看pod</span><br><span class="line">kubectl get deployment #看看deployment 开两个实例</span><br><span class="line">master01: vi /kubernetes/yml/ nginx-service.yml #设置service</span><br><span class="line">kubectl get service #查看service</span><br><span class="line">端口： 80：30066  （30066指的是node 的pod暴露30066端口，再由pod映射到nginx 的80端口）</span><br><span class="line">kubectl describe service nginx-http #下面</span><br><span class="line">NodePort: 30066/TCP</span><br><span class="line"><span class="meta">#</span><span class="bash">使用LoadBalancer master slaver 端口都暴露</span></span><br><span class="line">master01：30066</span><br><span class="line">master02：30066</span><br><span class="line">slaver01：30066</span><br><span class="line">slaver02: 30066</span><br><span class="line">kubectl delete -f nginx-service.yml #停掉</span><br><span class="line"><span class="meta">#</span><span class="bash">想要把30066改成80端口</span></span><br><span class="line">vi /kubernetes/yml/ nginx-service.yml</span><br><span class="line">prots:</span><br><span class="line">	-prot: 80 #Service 端口</span><br><span class="line">	targetPort: 80 #Pod 端口 将Service暴露端口转发到Pod端口上</span><br><span class="line">	nodePort: 80 # 本来是30066  但是报错 他的范围30000-32767</span><br><span class="line">kubectl create -f nginx-service.yml #重开</span><br><span class="line"><span class="meta">#</span><span class="bash">解决办法</span></span><br><span class="line">vi /etc/kubernetes/manitestls/kube-apiserver.yml</span><br><span class="line"><span class="meta">#</span><span class="bash">增加配置</span></span><br><span class="line">--service-node-prot-range=2-65545</span><br><span class="line"><span class="meta">#</span><span class="bash">ks8重启  或者 他自动重启</span></span><br><span class="line"><span class="meta">#</span><span class="bash">验证</span></span><br><span class="line">kubectl create -f nginx-service.yml</span><br><span class="line">kubectl describe service nginx-http</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">kubectl get node #结点状态</span><br><span class="line">master01: vi /kubernetes/yml/nginx-deployment.yml #设置deployment</span><br><span class="line">kubectl create -f nginx-deployment.yml</span><br><span class="line">kubectl get pod #查看pod</span><br><span class="line">kubectl get deployment #看看deployment 开两个实例</span><br><span class="line">master01: vi /kubernetes/yml/ nginx-service.yml #设置service</span><br><span class="line">kubectl get service #查看service</span><br><span class="line">端口： 80：30066  （30066指的是node 的pod暴露30066端口，再由pod映射到nginx 的80端口）</span><br><span class="line">kubectl describe service nginx-http #下面</span><br><span class="line">NodePort: 30066/TCP</span><br><span class="line"><span class="meta">#</span>使用LoadBalancer master slaver 端口都暴露</span><br><span class="line">master01：30066</span><br><span class="line">master02：30066</span><br><span class="line">slaver01：30066</span><br><span class="line">slaver02: 30066</span><br><span class="line">kubectl delete -f nginx-service.yml #停掉</span><br><span class="line"><span class="meta">#</span>想要把30066改成80端口</span><br><span class="line">vi /kubernetes/yml/ nginx-service.yml</span><br><span class="line">prots:</span><br><span class="line">	-prot: 80 #Service 端口</span><br><span class="line">	targetPort: 80 #Pod 端口 将Service暴露端口转发到Pod端口上</span><br><span class="line">	nodePort: 80 # 本来是30066  但是报错 他的范围30000-32767</span><br><span class="line">kubectl create -f nginx-service.yml #重开</span><br><span class="line"><span class="meta">#</span>解决办法</span><br><span class="line">vi /etc/kubernetes/manitestls/kube-apiserver.yml</span><br><span class="line"><span class="meta">#</span>增加配置</span><br><span class="line">--service-node-prot-range=2-65545</span><br><span class="line"><span class="meta">#</span>ks8重启  或者 他自动重启</span><br><span class="line"><span class="meta">#</span>验证</span><br><span class="line">kubectl create -f nginx-service.yml</span><br><span class="line">kubectl describe service nginx-http</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -807,7 +807,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -976,7 +976,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">63k</span>
+    <span title="站点总字数">69k</span>
   
 
 
@@ -987,7 +987,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">57 分钟</span>
+    <span title="站点阅读时长">1:02</span>
   
 </div>
 
@@ -1018,7 +1018,7 @@ var _hmt = _hmt || [];
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共17.5k字</span>
+  <span class="post-count">博客全站共19k字</span>
 </div>
 
 
